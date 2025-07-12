@@ -1,90 +1,165 @@
-import React, {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect} from 'react';
 import Sidebar from './Sidebar';
 import SideLogin from './SideLogin'
+import { useAuth, useCartStore } from '../../store/store';
+import SideCart from './SideCart';
+import { Heart, Shuffle, UserRound } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import useArticlesData from '../../hooks/useArticlesData';
+import { useDebounce } from 'use-debounce';
+import useProductData from '../../hooks/useProductData';
+import { useShallow } from 'zustand/shallow';
 
 function MiddleHeader() {
-    // const { isAuthenticated, user } = useAuthStore()
-    // recieve total amount card
-    // recive length item in cart for badge
-    // const navigate = useNavigate();
-    const [showSidebar, setShowSidebar] = useState(false);
-    const [showSideLogin, setShowSideLogin] = useState(false);
+    const subtotalPrice = useCartStore(state => state.calculateSubtotal);
+    const toggleSideCart = useCartStore(state => state.toggleSideCart);
+    const items = useCartStore(state=>state.items);
+    const badge = items?.length ;
 
-    function handleDragStart(e){
-        // dataTransfer for drag & drop - like a bag contain of drop information 
-        e.dataTransfer.setData("type", "cart");
+    const { articles } = useArticlesData();
+    const { products } = useProductData();
+
+    const { user, isLoggedIn, signOut } = useAuth(useShallow(state=>({
+        user: state.user,
+        isLoggedIn: state.isLoggedIn,
+        signOut: state.signOut
+    })))
+
+    const navigate = useNavigate();
+    const [query, setQuery] = useState("");
+    const [results, setResults] = useState([])
+    const [debouncedQuery] = useDebounce(query, 1000);
+    
+    // for show results under serach box
+    useEffect(()=>{
+        // if user erase it query, the result erased.
+        if (
+            debouncedQuery.trim().length === 0 
+          ) return setResults([]);
+
+          if(products?.length>0) console.log(products)
+        const filteredProducts = products.filter(p=>p.title.toLowerCase().includes(debouncedQuery.toLowerCase()) );
+        const filteredArticles = articles.filter(a=>a.title.toLowerCase().includes(debouncedQuery.toLowerCase()) );
+
+        const combined = [...filteredArticles.map(item=> ({...item, type: 'Article'})), 
+            ...filteredProducts.map(item=>({...item, type: 'Product'}))
+        ];
+        console.log(articles)
+        console.log("combined:", combined);
+        return setResults(combined);
+
+    }, [debouncedQuery, products, articles])
+
+    // for send query to other page (search results page)
+    const handleSearch =(e)=>{
+        if(e.key === "Enter"){
+            if(query.trim()) navigate(`/search?query=${query}`);
+            return;
+        }
+    }
+    const handleSearchClick = () => {
+        setResults([]);
+        navigate(`/search?query=${query}`);
     }
 
+    const [showSidebar, setShowSidebar] = useState(false); //menu
+    const [showSideLogin, setShowSideLogin] = useState(false); //auth
+
+    const handleAuth = () => {
+        if(!isLoggedIn) setShowSideLogin(true);
+        else navigate('/dashboard');
+    }
+    
   return (
-    <div className='w-full flex justify-between lg:justify-normal'>
+    <div className='flex justify-between lg:justify-stretch items-center px-4 py-2'>
         {/* menu hamburger */}
         <button className='lg:hidden bg-transparent border-none size-2' onClick={()=>setShowSidebar(!showSidebar)}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
         </button>
-        {showSidebar && <Sidebar setShowSidebar={setShowSidebar}/>}
+        <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar}/>
 
         {/* logo */}
-        <h1 className='font-bold text-black size-2'> Furniture </h1>
+        <h1 className='font-bold text-black size-8 text-3xl w-auto mr-4 leading-8'> Furniture </h1>
 
         {/* search bar */}
-        <div className='w-full lg:hidden'>
-            <input className='w-full relative pl-3 placeholder:text-gray-500' type="search" placeholder='search for products'/>
-            <span className=' absolute top-1/2 left-1'>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+        <div className='relative self-center bg-white hidden lg:block lg:w-full border-[1px] py-[6px] rounded-2xl'>
+            <input className='w-full rounded-2xl pl-8 placeholder:text-gray-500 focus:outline-none caret-gray-500' type="search" 
+                placeholder='search for products' onChange={(e)=>setQuery(e.target.value)} onKeyDown={handleSearch}/>
+            <span className=' absolute top-1/2 -translate-y-1/2 left-2 '>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                     <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                 </svg>
             </span>
+            {results.length>0 && (
+                <ul className={`absolute overflow-y-auto top-9 left-3 px-6 py-3 rounded-bl-lg rounded-br-lg bg-white z-50 `}>
+                {results.map((result, index)=>(
+                    <li onClick={handleSearchClick} key={index} className='flex gap-6 justify-between items-center mb-3'>
+                        <img src={result.image} alt={result.title} className='w-10 h-10 rounded-lg aspect-square'/>
+                        <span className='text-gray-400 font-semibold'>{result.title}</span>
+                        <span className='text-gray-300'>{result.type}</span>
+                    </li>
+                ))}
+            </ul>
+            )}
         </div>
 
         {/* icons and login */}
-        <div className='flex gap-2 lg:hidden'>
+        <div className='ml-4 hidden gap-2 lg:flex items-center text-gray-800'>
             {/* compare */}
-            <div className='bg-gray-400 cursor-pointer rounded-full p-2'>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" />
-                </svg>
+            <div className='bg-gray-200 cursor-pointer rounded-full p-2 transition-all ease-in duration-200 hover:text-gray-600'>
+                <Shuffle className='size-5'/>
             </div>
 
             {/* wishlist */}
             {/* onClick={navigate('/wishlist')} */}
-            <div className='bg-gray-400 cursor-pointer rounded-full p-2' >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                </svg>
+            <div className='bg-gray-200  cursor-pointer rounded-full p-2 transition-all ease-in duration-200 hover:text-gray-600' >
+                <Heart className='stroke-[1.5px]' onClick={()=>navigate('/wishlist')}/>
             </div>
 
             {/* login/register */}
-            <div className='flex' draggable onDragStart={handleDragStart} onClick={()=>setShowSideLogin(!showSideLogin)} >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                </svg>
-                <span>
-                    {/* const { isAuthenticated, user } = useAuthStore() */}
-                    Login / Register
+            <div className={`flex cursor-pointer bg-gray-200 p-1 rounded-xl transition-all ease-in duration-200 hover:text-gray-600 ${isLoggedIn?" group/dashboard relative":""}`} 
+                onClick={handleAuth}>
+                <UserRound className='text-gray-800 size-6 stroke-1'/>
+                <span className='text-nowrap text-sm'>
+                    {isLoggedIn ? `Hello, ${user.username}` : "Login / Register"}
                 </span>
+
+                <div className='absolute top-8 left-0 bg-white p-2 rounded-lg z-20 transition-all duration-200 ease-in-out opacity-0 pointer-events-none group-hover/dashboard:opacity-100 group-hover/dashboard:pointer-events-auto'>
+                    <ul className='flex flex-col gap-1.5 text-gray-400 child:hover:bg-orange-200'>
+                        <li onClick={()=>navigate('/dashboard')} className='transition-all duration-150 ease-in-out hover:bg-orange-400/75 p-3'>Dashboard</li>
+                        <li onClick={()=>navigate('/dashboard/orders')} className='transition-all duration-150 ease-in-out hover:bg-orange-400/75 p-3'>Orders</li>
+                        <li onClick={()=>navigate('/dashboard/addresses')} className='transition-all duration-150 ease-in-out hover:bg-orange-400/75 p-3'>Adresses</li>
+                        <li onClick={()=>navigate('/dashboard/account')} className='text-nowrap transition-all duration-150 ease-in-out hover:bg-orange-400/75 p-3'>Acount details</li>
+                        <li onClick={()=>navigate('/dashboard/wishlist')} className='transition-all duration-150 ease-in-out hover:bg-orange-400/75 p-3'>Wishlist</li>
+                        <li onClick={signOut} className='transition-all duration-150 ease-in-out hover:bg-orange-400/75 p-3'> Logout</li>
+                    </ul>
+                </div>
             </div>
-            {showSideLogin && <SideLogin setShowSideLogin={setShowSideLogin} />}
+            <SideLogin setShowSideLogin={setShowSideLogin} showSideLogin={showSideLogin}/>
         </div>
 
         {/* cart */}
-        <div className='relative'>
-            <div className='bg-transparent lg:bg-black rounded-md'>
+        <div className='self-end lg:ml-4 relative cursor-pointer'
+            onClick={toggleSideCart} >
+            <div className='bg-transparent lg:bg-black rounded-md flex py-1 px-2'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 text-black lg:text-white">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
                 </svg>
-                <span className='lg:hidden text-white '>
-                    $0.00
+                <span className=' hidden lg:flex text-white '>
+                    {subtotalPrice()>0 ? `$${subtotalPrice()}`: "$0.00"}
                 </span>
             </div>
 
             {/* badge cart */}
-            <div className='bg-orange-600 lg:bg-white text-white lg:text-orange-600 p-1 rounded-full absolute top-0 right-0'>
-                0
+            <div className='bg-orange-600 lg:bg-white text-white lg:text-orange-600 shadow-2xl w-4 h-4 absolute -top-2 -right-2 text-xs rounded-md text-center leading-4'>
+                {badge}
             </div>
+            
         </div>
+        <SideCart/>
+
     </div>
   )
 }

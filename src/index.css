@@ -4,7 +4,6 @@
 
 @custom-variant dark (&:where(.dark, .dark *)); 
 
-
 @theme{
     --color-brown-100: #ECE0D1;
     --color-brown-300: #DBC1AC;
@@ -25,16 +24,47 @@
     /* letter spacing */
     --tracking-thightest: -0.065em;
 }
-/* 
-@layer components{
-    .container{
-        @apply mx-auto px-4 lg:px-2.5
-    }
-    
+
+.custom-shadow::before{
+    @apply absolute inset-0 bg-black opacity-0 transition-opacity duration-300;
+    content: '';
+    z-index:0
+}
+.group:hover .custom-shadow::before{
+    @apply opacity-30
 }
 
-@layer utilities{
-    .bg-home-mobile{
-        background-image: url('../images/headerBgMobile.webp')
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+-ms-overflow-style: none;
+scrollbar-width: none;
+}
+  
+
+@layer components{
+    .container {
+        @apply mx-auto;
+        @apply max-w-full px-9;
     }
-} */
+    @screen lg {
+        .container {
+            @apply px-24;
+        }
+    }
+}
+ 
+@layer utilities{
+    /* .bg-home-mobile{
+        background-image: url('../images/headerBgMobile.webp')
+    } */
+    .custom-point::before{
+        @apply absolute -bottom-1 left-1/2 -translate-x-1/2 rotate-45 h-2 w-2 bg-gray-800 bg-opacity-80 opacity-0;
+        content: ''
+    }
+    .group-hover\/tooltip .custom-point::before{
+        @apply opacity-100
+    }
+}

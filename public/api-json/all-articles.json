@@ -1,0 +1,152 @@
+[
+    {
+        "id": "1",
+        "authorName": "Mr. Mackay",
+        "avatar":"/images/articles/avatar-article-big.jpeg",
+        "image": "/images/articles/article1.jpeg",
+        "subject": "Design",
+        "createdAt": "2025-04-01T12:00:00Z",
+        "title": "Revolutionising a classic",
+        "summary": "The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets."
+    },
+    {
+        "id": "2",
+        "authorName": "Mr. Mackay",
+        "avatar":"/images/articles/avatar-article-big.jpeg",
+        "image": "/images/articles/article1.jpeg",
+        "subject": "Sustainability",
+        "createdAt": "2025-04-02T12:00:00Z",
+        "title": "Fair are promoting sustainability",
+        "summary": "Lorem ipsum works well for staging. It’s like the prop..."
+    },
+    {
+        "id": "3",
+        "authorName": "Mr. Mackay",
+        "avatar":"/images/articles/avatar-article-big.jpeg",
+        "image": "/images/articles/article1.jpeg",
+        "subject": "Culture",
+        "createdAt": "2025-04-03T12:00:00Z",
+        "title": "Breaking all the rules!",
+        "summary": "As an alternative theory, someone tracked down a Latin source..."
+    },
+    {
+        "id": "4",
+        "authorName": "Mr. Mackay",
+        "avatar":"/images/articles/avatar-article-big.jpeg",
+        "image": "/images/articles/article1.jpeg",
+        "subject": "Innovation",
+        "createdAt": "2025-04-04T12:00:00Z",
+        "title": "Top inventors contest in Paris",
+        "summary": "Popularity during the 1960s when Letraset used it on their dry-transfer sheets."
+    },
+    {
+        "id": "5",
+        "authorName": "Mr. Mackay",
+        "avatar":"/images/articles/avatar-article-big.jpeg",
+        "image": "/images/articles/article1.jpeg",
+        "subject": "Travel",
+        "createdAt": "2025-04-05T12:00:00Z",
+        "title": "In the heart of Valen",
+        "summary": "As an alternative theory, someone tracked down a Latin source..."
+    },
+    {
+        "id": "6",
+        "authorName": "Mr. Mackay",
+        "avatar":"/images/articles/avatar-article-big.jpeg",
+        "image": "/images/articles/article1.jpeg",
+        "subject": "Design",
+        "createdAt": "2025-04-01T12:00:00Z",
+        "title": "Revolutionising a classic",
+        "summary": "The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets."
+    },
+    {
+        "id": "7",
+        "authorName": "Mr. Mackay",
+        "avatar":"/images/articles/avatar-article-big.jpeg",
+        "image": "/images/articles/article1.jpeg",
+        "subject": "Sustainability",
+        "createdAt": "2025-04-02T12:00:00Z",
+        "title": "Fair are promoting sustainability",
+        "summary": "Lorem ipsum works well for staging. It’s like the prop..."
+    },
+    {
+        "id": "8",
+        "authorName": "Mr. Mackay",
+        "avatar":"/images/articles/avatar-article-big.jpeg",
+        "image": "/images/articles/article1.jpeg",
+        "subject": "Culture",
+        "createdAt": "2025-04-03T12:00:00Z",
+        "title": "Breaking all the rules!",
+        "summary": "As an alternative theory, someone tracked down a Latin source..."
+    },
+    {
+        "id": "9",
+        "authorName": "Mr. Mackay",
+        "avatar":"/images/articles/avatar-article-big.jpeg",
+        "image": "/images/articles/article1.jpeg",
+        "subject": "Innovation",
+        "createdAt": "2025-04-04T12:00:00Z",
+        "title": "Top inventors contest in Paris",
+        "summary": "Popularity during the 1960s when Letraset used it on their dry-transfer sheets."
+    },
+    {
+        "id": "10",
+        "authorName": "Mr. Mackay",
+        "avatar":"/images/articles/avatar-article-big.jpeg",
+        "image": "/images/articles/article1.jpeg",
+        "subject": "Travel",
+        "createdAt": "2025-04-05T12:00:00Z",
+        "title": "In the heart of Valen",
+        "summary": "As an alternative theory, someone tracked down a Latin source..."
+    },
+    {
+        "id": "11",
+        "authorName": "Mr. Mackay",
+        "avatar":"/images/articles/avatar-article-big.jpeg",
+        "image": "/images/articles/article1.jpeg",
+        "subject": "Design",
+        "createdAt": "2025-04-01T12:00:00Z",
+        "title": "Revolutionising a classic",
+        "summary": "The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets."
+    },
+    {
+        "id": "12",
+        "authorName": "Mr. Mackay",
+        "avatar":"/images/articles/avatar-article-big.jpeg",
+        "image": "/images/articles/article1.jpeg",
+        "subject": "Sustainability",
+        "createdAt": "2025-04-02T12:00:00Z",
+        "title": "Fair are promoting sustainability",
+        "summary": "Lorem ipsum works well for staging. It’s like the prop..."
+    },
+    {
+        "id": "13",
+        "authorName": "Mr. Mackay",
+        "avatar":"/images/articles/avatar-article-big.jpeg",
+        "image": "/images/articles/article1.jpeg",
+        "subject": "Culture",
+        "createdAt": "2025-04-03T12:00:00Z",
+        "title": "Breaking all the rules!",
+        "summary": "As an alternative theory, someone tracked down a Latin source..."
+    },
+    {
+        "id": "14",
+        "authorName": "Mr. Mackay",
+        "avatar":"/images/articles/avatar-article-big.jpeg",
+        "image": "/images/articles/article1.jpeg",
+        "subject": "Innovation",
+        "createdAt": "2025-04-04T12:00:00Z",
+        "title": "Top inventors contest in Paris",
+        "summary": "Popularity during the 1960s when Letraset used it on their dry-transfer sheets."
+    },
+    {
+        "id": "15",
+        "authorName": "Mr. Mackay",
+        "avatar":"/images/articles/avatar-article-big.jpeg",
+        "image": "/images/articles/article1.jpeg",
+        "subject": "Travel",
+        "createdAt": "2025-04-05T12:00:00Z",
+        "title": "In the heart of Valen",
+        "summary": "As an alternative theory, someone tracked down a Latin source..."
+    }
+]
