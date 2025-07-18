@@ -9,7 +9,7 @@ function LatestArticles() {
   const [refetching, setRefetching] = useState(false);
   const queryClient = useQueryClient()
 
-  const {data: articles,isError, isLoading} = useQuery({
+  const {data: articles,isError, isLoading, refetch} = useQuery({
     queryKey:["articles"],
     queryFn:async ()=>{
       const res = await axios.get('/api-json/all-articles.json');

@@ -1,35 +1,27 @@
 import React from 'react';
 import { useAuth } from '../../../store/store';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 function AcountDetails() {
-  const user = useAuth(state=>state.user);
+  const changePassword = useAuth(state=>state.changePassword);
   const {register, formState:{errors}, reset, handleSubmit, watch} = useForm();
 
-  const onSubmit = (data) => {
-    if (data.currentPass === user.password){
-      if (data.newPass !== data.confirmNewPass) return alert('password do not match');
-      else {
-        alert('success process')
-        reset();
-        return;
-      }
+  const onSubmit = async (data) => {
+    try {
+      await changePassword(data.newPass);
+      toast.success('Password changed successfully');
+      reset();
+    } catch (err) {
+      toast.error(err.message || 'Failed to change password');
     }
-    else alert('current password is false')
-  }
+  };
   
   return (
     <form className='md:ml-9 max-w-72 bg-white px-6 py-3 my-6 rounded-xl' onSubmit={handleSubmit(onSubmit)}>
       
       {/* add options : change password and email */}
-
       <div className='flex flex-col gap-6 rounded-xl'>
-        <div className='flex flex-col'>
-          <label htmlFor="current-pass">Current Password</label>
-          <input {...register('currentPass', {required: 'current password is required'})} type="text" id='current-pass' className='px-3 h-10 border border-gray-400 bg-transparent rounded-full'/>
-          {errors.currentPass && <p className='text-red-400'>{errors.currentPass.message}</p>}
-        </div>
-
         <div className='flex flex-col'>
           <label htmlFor="new-pass">NewPassword</label>
           <input {...register('newPass', {required: 'new password is required,  its should be contain big letter, small letted, atleast one number and one of !@#$%^&* char', pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{6,})'})} type="text" id='new-pass' className='px-3 h-10 border border-gray-400 bg-transparent rounded-full'/>

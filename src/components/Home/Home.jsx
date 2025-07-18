@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
-import Header from '../Header/Header'
-import BannerSlider from '../Banner/BannerSlider'
-import Main from './Main'
-import Footer from '../Footer/Footer'
+
+import React, {Suspense} from 'react';
+import Header from '../Header/Header';
+import BannerSlider from '../Banner/BannerSlider';
+import Main from './Main';
+import Footer from '../Footer/Footer';
 
 function Home() {
   

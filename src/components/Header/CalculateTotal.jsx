@@ -3,11 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { useCartStore } from '../../store/store';
 
 
-function CalculateTotal() {
+function CalculateTotal({toggleSideCart}) {
     const getTotalPrice = useCartStore(state=>state.calculateSubtotal)
     const subtotalPrice = getTotalPrice();
     const FreeShipping = 1300;
     const navigate = useNavigate();
+
+    const handleCheckout = () => {
+        navigate('/checkout');
+        toggleSideCart()
+    }
     
     return (
     <>
@@ -28,7 +33,7 @@ function CalculateTotal() {
                 </div>
             </div>
             <button className='w-full py-2 mt-4 rounded-full bg-slate-200 text-gray-800 transition-all duration-200 ease-linear hover:bg-slate-300'>View cart</button>
-            <button className='w-full py-2 rounded-full bg-orange-400 text-white transition-all duration-200 ease-linear hover:bg-orange-500' onClick={()=>navigate('/checkout')}>Checkout</button>
+            <button className='w-full py-2 rounded-full bg-orange-400 text-white transition-all duration-200 ease-linear hover:bg-orange-500' onClick={handleCheckout}>Checkout</button>
         </div>
     </>
   )

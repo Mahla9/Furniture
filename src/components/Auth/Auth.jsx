@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import BannerStatic from '../Banner/BannerStatic';
-import Login from './Login';
-import Register from './Register';
 import { Link, useParams } from 'react-router-dom';
+import { Spin } from 'antd';
+const Login = React.lazy(() => import('./Login'));
+const Register = React.lazy(() => import('./Register'));
+
 
 function Auth() {
   const {section} = useParams();
@@ -29,11 +31,10 @@ function Auth() {
             <div className='border-b w-full md:border-r md:w-2 md:h-72 border-gray-400 '></div>
 
             <div className=' w-full lg:basis-1/2 overflow-hidden h-auto'>
-              {/* login form */}
-              <Login section={section}/>
+              <Suspense fallback={<Spin/>}>
+                {section === 'login' ? <Login/> : <Register/>}
+              </Suspense>
 
-              {/* register form */}
-              <Register section={section}/>
             </div>
         </div>
         <Footer/>

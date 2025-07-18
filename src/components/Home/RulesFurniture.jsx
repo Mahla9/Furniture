@@ -9,7 +9,7 @@ function RulesFurniture() {
     <div className='grid grid-cols-1 md:grid-cols-5 gap-6 relative'>
         <div className='md:col-span-2'>
             <h2 className='text-3xl font-semibold'>Rules for choosing furniture</h2>
-            <img src="/images/rules-furniture.png" alt="rules-furniture" />
+            <img src="/images/rules-furniture.png" alt="rules-furniture" className='w-full'/>
         </div>
         <div className='md:col-span-3 flex flex-col gap-6'>
             <div className='flex flex-col gap-4'>
@@ -26,7 +26,7 @@ function RulesFurniture() {
                 </ul>
             </div>
             <div className='relative rounded-full overflow-hidden'>
-                <img src="/images/rules-video-poster.jpeg" alt="rules-video-poster" className='w-full h-full'/>
+                <img loading='lazy' src="/images/rules-video-poster.webp" alt="rules-video-poster" className='w-full h-full'/>
                 <div className='absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 text-center'>
                     <span className='text-gray-200 mb-7'>How choose furniture</span>
                     <h2 className='text-2xl lg:text-4xl font-bold text-gray-100 text-nowrap mb-7'>SØLREM furniture collection</h2>

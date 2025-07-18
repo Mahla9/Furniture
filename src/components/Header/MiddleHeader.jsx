@@ -1,23 +1,18 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState} from 'react';
 import Sidebar from './Sidebar';
 import SideLogin from './SideLogin'
 import { useAuth, useCartStore } from '../../store/store';
 import SideCart from './SideCart';
 import { Heart, Shuffle, UserRound } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import useArticlesData from '../../hooks/useArticlesData';
-import { useDebounce } from 'use-debounce';
-import useProductData from '../../hooks/useProductData';
 import { useShallow } from 'zustand/shallow';
+import Searchbox from './Searchbox';
 
 function MiddleHeader() {
     const subtotalPrice = useCartStore(state => state.calculateSubtotal);
     const toggleSideCart = useCartStore(state => state.toggleSideCart);
     const items = useCartStore(state=>state.items);
     const badge = items?.length ;
-
-    const { articles } = useArticlesData();
-    const { products } = useProductData();
 
     const { user, isLoggedIn, signOut } = useAuth(useShallow(state=>({
         user: state.user,
@@ -26,41 +21,6 @@ function MiddleHeader() {
     })))
 
     const navigate = useNavigate();
-    const [query, setQuery] = useState("");
-    const [results, setResults] = useState([])
-    const [debouncedQuery] = useDebounce(query, 1000);
-    
-    // for show results under serach box
-    useEffect(()=>{
-        // if user erase it query, the result erased.
-        if (
-            debouncedQuery.trim().length === 0 
-          ) return setResults([]);
-
-          if(products?.length>0) console.log(products)
-        const filteredProducts = products.filter(p=>p.title.toLowerCase().includes(debouncedQuery.toLowerCase()) );
-        const filteredArticles = articles.filter(a=>a.title.toLowerCase().includes(debouncedQuery.toLowerCase()) );
-
-        const combined = [...filteredArticles.map(item=> ({...item, type: 'Article'})), 
-            ...filteredProducts.map(item=>({...item, type: 'Product'}))
-        ];
-        console.log(articles)
-        console.log("combined:", combined);
-        return setResults(combined);
-
-    }, [debouncedQuery, products, articles])
-
-    // for send query to other page (search results page)
-    const handleSearch =(e)=>{
-        if(e.key === "Enter"){
-            if(query.trim()) navigate(`/search?query=${query}`);
-            return;
-        }
-    }
-    const handleSearchClick = () => {
-        setResults([]);
-        navigate(`/search?query=${query}`);
-    }
 
     const [showSidebar, setShowSidebar] = useState(false); //menu
     const [showSideLogin, setShowSideLogin] = useState(false); //auth
@@ -78,32 +38,15 @@ function MiddleHeader() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
         </button>
+        
         <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar}/>
 
         {/* logo */}
         <h1 className='font-bold text-black size-8 text-3xl w-auto mr-4 leading-8'> Furniture </h1>
 
         {/* search bar */}
-        <div className='relative self-center bg-white hidden lg:block lg:w-full border-[1px] py-[6px] rounded-2xl'>
-            <input className='w-full rounded-2xl pl-8 placeholder:text-gray-500 focus:outline-none caret-gray-500' type="search" 
-                placeholder='search for products' onChange={(e)=>setQuery(e.target.value)} onKeyDown={handleSearch}/>
-            <span className=' absolute top-1/2 -translate-y-1/2 left-2 '>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                </svg>
-            </span>
-            {results.length>0 && (
-                <ul className={`absolute overflow-y-auto top-9 left-3 px-6 py-3 rounded-bl-lg rounded-br-lg bg-white z-50 `}>
-                {results.map((result, index)=>(
-                    <li onClick={handleSearchClick} key={index} className='flex gap-6 justify-between items-center mb-3'>
-                        <img src={result.image} alt={result.title} className='w-10 h-10 rounded-lg aspect-square'/>
-                        <span className='text-gray-400 font-semibold'>{result.title}</span>
-                        <span className='text-gray-300'>{result.type}</span>
-                    </li>
-                ))}
-            </ul>
-            )}
-        </div>
+        <div className='hidden lg:block w-full'><Searchbox/></div>
+        
 
         {/* icons and login */}
         <div className='ml-4 hidden gap-2 lg:flex items-center text-gray-800'>

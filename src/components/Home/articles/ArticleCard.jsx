@@ -16,7 +16,7 @@ function ArticleCard({article}) {
   return (
     <article className='rounded-lg overflow-hidden group/card'>
       <div className='relative overflow-hidden'>
-        <img src={article.image} alt={article.title} className='h-full w-full transition-all duration-500 ease-out group-hover/card:scale-110'/>
+        <img loading='lazy' src={article.image} alt={article.title} className='h-full w-full transition-all duration-500 ease-out group-hover/card:scale-110'/>
 
         <div className='absolute bottom-2 inset-x-0 flex justify-around items-center'>
           <div className='flex items-center justify-center'>
@@ -44,8 +44,8 @@ function ArticleCard({article}) {
       </div>
 
       <div className='p-5 bg-white'>
-        <div className='text-gray-500'>{article.subject} / {formattedDate}</div>
-        <h3 className='text-gray-800'>{article.title}</h3>
+        <div className='text-gray-500 text-xs sm:text-sm'>{article.subject} / {formattedDate}</div>
+        <h3 className='text-gray-800 line-clamp-1'>{article.title}</h3>
         <p className='text-gray-600 line-clamp-2'>{article.summary}</p>
         <div className='inline-block text-orange-400 cursor-pointer transition-all duration-200 ease-in hover:text-orange-300'>
           Continue reading

@@ -9,11 +9,6 @@ const slides = [
 
 function BannerSlider() {
     const [currentSlide, setCurrentSlide] = useState(0);
-    useEffect(()=>{
-      setInterval(()=>{
-        nextSlide()
-      },15000)
-    },[]);
 
     function nextSlide(){
       if(currentSlide===slides.length-1) setCurrentSlide(0)
@@ -23,6 +18,13 @@ function BannerSlider() {
       if(currentSlide===0) setCurrentSlide(slides.length-1)
       else setCurrentSlide(currentSlide-1)
     }
+
+     useEffect(()=>{
+      setInterval(()=>{
+        nextSlide()
+      },15000)
+    },[]);
+
   // اگر کاربر دکمه قبلی فشار داد ترنسلیت ایکس بشه ولی اگ دکمه بعدی رو فشار داد ترنسلیت منفی ایکس بشه
   return (
     <div className='w-full h-[calc(100vh-140px)] relative flex'>

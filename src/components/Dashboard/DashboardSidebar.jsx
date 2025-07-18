@@ -1,9 +1,18 @@
 import React from 'react'
 import { Link} from 'react-router-dom';
 import { useAuth } from '../../store/store';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function DashboardSidebar({active}) {
   const logout = useAuth(state=>state.signOut);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    toast.success('logOut successfully');
+    navigate('/');
+  }
 
     const sections = [
         { label: "Dashboard", value: "dashboard" },
@@ -20,7 +29,7 @@ function DashboardSidebar({active}) {
                 {section.label}
             </Link>
         )}
-        <div key="logout" onClick={logout} className='cursor-pointer p-2 transition-all duration-150 ease-in hover:bg-orange-300'>Logout</div>
+        <div key="logout" onClick={handleLogout} className='cursor-pointer p-2 transition-all duration-150 ease-in hover:bg-orange-300'>Logout</div>
       </ul>
     </div>
   )

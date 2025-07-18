@@ -1,6 +1,10 @@
 import React from 'react';
+import { useCartStore } from '../../store/store';
 
 function CartItems({items}) {
+    const reduceQuantityItem = useCartStore(state=>state.reduceQuantityItem);
+    const addQuantityItem = useCartStore(state=>state.addQuantityItem);
+    const deleteFromCart = useCartStore(state=>state.deleteFromCart);
   return (
     <ul className='flex flex-col overflow-y-auto '>
         {items.map(item=>(
@@ -12,9 +16,9 @@ function CartItems({items}) {
                     <div className='flex flex-col gap-3'>
                         <h3>{item.title}</h3>
                         <div className='flex border rounded-full overflow-hidden'>
-                            <span onClick={()=>addQuantityItem(item.productId)} className='text-center leading-5 px-2 cursor-pointer transition-all duration-200 ease-in text-gray-700 hover:bg-orange-400 hover:text-white'>-</span>
+                            <span onClick={()=>reduceQuantityItem(item.productId)} className='text-center leading-5 px-2 cursor-pointer transition-all duration-200 ease-in text-gray-700 hover:bg-orange-400 hover:text-white'>-</span>
                             <span className='border-r border-l px-3 text-gray-700'>{item.quantity}</span>
-                            <span onClick={()=>reduceQuantityItem(item.productId)} className='text-center leading-5 px-2 cursor-pointer transition-all duration-200 ease-in text-gray-700 hover:bg-orange-400 hover:text-white'>+</span>
+                            <span onClick={()=>addQuantityItem(item.productId)} className='text-center leading-5 px-2 cursor-pointer transition-all duration-200 ease-in text-gray-700 hover:bg-orange-400 hover:text-white'>+</span>
                         </div>
                     </div>
                 </div>

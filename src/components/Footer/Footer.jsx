@@ -10,7 +10,7 @@ function Footer() {
             {/* left footer */}
             <div className='flex flex-col items-start gap-5 w-[50%]'>
                 <div className='max-w-60 -translate-x-8'>
-                    <img src="/images/Logo.png" alt="Logo" className='h-full w-full'/>
+                    <img src="/images/Logo.webp" alt="Logo" className='h-full w-full'/>
                 </div>
                 <div className='flex flex-col gap-8 md:items-center md:flex-row w-full md:justify-between'>
                     <div className='flex flex-col gap-4'>

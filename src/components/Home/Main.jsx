@@ -1,26 +1,29 @@
-import React from 'react'
-import CategoriesSection from './CategoriesSection'
-import BestSellerWeek from './BestSellerWeek'
-import ShoppingByBrand from './ShoppingByBrand'
-import ProductCollection from './ProductCollection'
-import WeeklyCollection from './WeeklyCollection'
-import RulesFurniture from './RulesFurniture'
-import LatestArticles from './articles/LatestArticles'
-import AboutStore from './AboutStore'
+import React, { Suspense, lazy } from 'react';
+
+const CategoriesSection = lazy(() => import('./CategoriesSection'));
+const BestSellerWeek = lazy(() => import('./BestSellerWeek'));
+const ShoppingByBrand = lazy(() => import('./ShoppingByBrand'));
+const ProductCollection = lazy(() => import('./ProductCollection'));
+const WeeklyCollection = lazy(() => import('./WeeklyCollection'));
+const RulesFurniture = lazy(() => import('./RulesFurniture'));
+const LatestArticles = lazy(() => import('./articles/LatestArticles'));
+const AboutStore = lazy(() => import('./AboutStore'));
 
 function Main() {
   return (
     <main className='container'>
-      <CategoriesSection/>
-      <BestSellerWeek/>
-      <ShoppingByBrand/>
-      <ProductCollection/>
-      <WeeklyCollection/>
-      <RulesFurniture/>
-      <LatestArticles/>
-      <AboutStore/>
+      <Suspense fallback={<div>Loading...</div>}>
+        <CategoriesSection />
+        <BestSellerWeek />
+        <ShoppingByBrand />
+        <ProductCollection />
+        <WeeklyCollection />
+        <RulesFurniture />
+        <LatestArticles />
+        <AboutStore />
+      </Suspense>
     </main>
-  )
+  );
 }
 
-export default Main
+export default Main;

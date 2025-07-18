@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { supabase } from '../supabaseClient';
-import { toast } from 'react-toastify';
 
 
 
@@ -9,20 +8,11 @@ import { toast } from 'react-toastify';
 export const useProductStore = create((set) => ({
   products: [],
   bestSeller:[],
-  chairs:[],
-  sofas:[],
-  tables:[],
-  armchairs:[],
   newProducts:[],
 
   setProducts: (data) => set({ products: data }),
   setBestSeller: (data) => set({ bestSeller: data }),
   setNewProducts: (data) => set({ newProducts: data }),
-  setChairs: (data) => set({ chairs: data }),
-  setSofas: (data) => set({ sofas: data }),
-  setTables: (data) => set({ tables: data }),
-  setArmchairs: (data) => set({ armchairs: data }),
-
 }));
 
 // Cart Store
@@ -55,7 +45,7 @@ export const useCartStore = create(
       else {
         set({ items: [...get().items, { ...newItem, quantity: 1 }] });
       }
-      get().toggleSideCart(); // این خط باعث میشه سایدبار باز شه6
+      get().toggleSideCart(); // این خط باعث میشه سایدبار باز شه
   },
 
   // for sideCart
@@ -97,7 +87,7 @@ export const useAuth = create((set, get) => ({
   wishList: [],
   error: null,
 
-  // ✅ REGISTER
+  // REGISTER
   signUp: async (email, password, username) => {
     const { data, error } = await supabase.auth.signUp({ email, password });
     if (error || !data.user) return { error };
@@ -113,7 +103,7 @@ export const useAuth = create((set, get) => ({
     return { data: data.user };
   },
 
-  // ✅ LOGIN
+  // LOGIN
   signIn: async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({email, password}) ;
     console.log("🟢 SIGNIN RESPONSE =>", data, error);
@@ -159,7 +149,7 @@ export const useAuth = create((set, get) => ({
     return { data: {...sessionUser} };
   },
 
-  // ✅ GET SESSION
+  // GET SESSION
   getSessionUser: async () => {
     const { data, error } = await supabase.auth.getUser();
     if (error || !data.user) return;
@@ -181,7 +171,7 @@ export const useAuth = create((set, get) => ({
     });
   },
 
-  // ✅ LOGOUT
+  // LOGOUT
   signOut: async () => {
     await supabase.auth.signOut();
     set({ user: null, isLoggedIn: false, wishList: [] });
@@ -215,18 +205,20 @@ export const useAuth = create((set, get) => ({
     }
   },
 
-  changePassword: async (newPassword) => {
-    const { error } = await supabase.auth.updateUser({
+  // forgot password => send reset email
+  forgotPassword: async (email) => {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    if (error) throw error;
+    return true;
+  },
+
+  // Change Password
+  changePassword: (newPassword) => {
+   supabase.auth.updateUser({
       password: newPassword,
     });
-
-    if (error) {
-      toast.error(error.message);
-      set({error:error})
-      throw error;
-    }
-
-    toast.success('Password changed successfully');
   },
 }));
 
@@ -261,6 +253,7 @@ export const useCheckoutStore = create(
         lastName: "",
         phone: "",
         email:"",
+        note:""
       },
 
       orders: [], //orderId, date, status
@@ -269,14 +262,11 @@ export const useCheckoutStore = create(
 
 
       // Actions (Optimized)
-      setShippingAddress: (field, value) => {
-        set(state=>({
-          shippingAddress: {
-            ...state.shippingAddress,
-            [field]: value
-          }
-        }))
-      },
+      setFullShippingAddress: (address) =>
+        set(() => ({
+          shippingAddress: address
+        })),
+
 
       addOrder: (newOrder) =>
         set(state => ({

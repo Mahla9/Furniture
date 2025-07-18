@@ -1,11 +1,12 @@
 import React from 'react';
 import {useAuthForm} from './useAuthForm';
+import { Spin } from 'antd';
 
-function Login({section}) {
+function Login() {
     const {errors,loading,register,handleSubmit, onSubmit} = useAuthForm("login");
     
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className={`w-full transition duration-300 ease-in flex flex-col gap-2.5 ${section === 'login' ?" h-auto pointer-events-auto":"overflow-hidden h-0 pointer-events-none"}`}>
+        <form onSubmit={handleSubmit(onSubmit)} className={`w-full transition duration-300 ease-in flex flex-col gap-2.5 `}>
             <h3 className='text-gray-800 font-semibold text-xl md:text-2xl'>Login</h3>
 
             <div className='flex flex-col'>
@@ -21,7 +22,7 @@ function Login({section}) {
             </div>
 
             <button type="submit" className={`py-2 rounded-full text-white rounded-ful ${loading?"disabled bg-orange-300":"bg-orange-400 "}`}>
-                Log in
+                Log in {loading && <Spin size='small'/>} 
             </button>
         </form>
     )

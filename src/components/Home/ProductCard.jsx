@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { Heart, ShoppingCart, Shuffle, Search, Star } from 'lucide-react';
 import { useCartStore, useAuth } from '../../store/store';
 import { useShallow } from 'zustand/shallow';
 import { useNavigate } from 'react-router-dom';
 
 
-function ProductCard({product,list}) {
+function ProductCard({product,list,carousel}) {
     const navigate = useNavigate();
     const addToCart = useCartStore(state=>state.addToCart);
     const {toggleWishList, wishList} = useAuth(
@@ -14,16 +14,18 @@ function ProductCard({product,list}) {
         wishList: state.wishList
       }))
     );
-    const isLiked = wishList.some(item => item.productId === product.productId);
+    const isLiked = useMemo(()=>{
+      return wishList.some(item => item.productId === product.productId);
+    },[product.productId, wishList]);
 
-    const handleLiked = (product) => {
+    const handleLiked = useCallback((product) => {
       toggleWishList(product);
-    }
+    },[toggleWishList]);
     
     const discountedPrice = (product)=> (product.price - (product.price * product.discount / 100));
 
   return (
-    <div key={product.productId} className={`relative bg-white flex ${list === "col" ? "flex-col hover:-translate-y-3" : "flex-row"} rounded-lg shadow-lg shadow-gray-300 overflow-hidden transition-transform duration-150 ease-in group/card`}>
+    <div key={product.productId} className={`relative bg-white flex ${carousel && "w-1/2 lg:w-1/3 shrink-0"} ${list === "col" ? "flex-col hover:-translate-y-3" : "flex-row"} rounded-lg shadow-lg shadow-gray-300 overflow-hidden transition-transform duration-150 ease-in group/card`}>
             <Heart className={`absolute top-2 right-2 w-5 z-10 cursor-pointer ${isLiked?"fill-red-700 stroke-red-700":"fill-none stroke-gray-500"}`} onClick={()=>handleLiked(product)} />
             <div className='absolute top-2 left-2 z-10'>
             {product.discount && <div className='px-2 mb-1 bg-orange-400 rounded-xl text-white text-center text-sm'>-{product.discount}%</div>}
@@ -33,7 +35,7 @@ function ProductCard({product,list}) {
 
             {/* image card */}
             <div className={`lg:translate-y-3 transition-all duration-150 ease-in flex justify-center cursor-pointer ${list==="col" ? "lg:group-hover/card:translate-y-0" : ""}`} onClick={()=>navigate(`/product/${product.productId}`)}>
-              <img src={product.image} alt={product.title} className='aspect-square object-cover'/>
+              <img src={product.image} alt={product.title} loading='lazy' className='aspect-square object-cover'/>
             </div>
 
             {/* info card */}
@@ -105,4 +107,4 @@ function ProductCard({product,list}) {
   )
 }
 
-export default ProductCard;
+export default memo(ProductCard);

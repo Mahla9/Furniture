@@ -2,22 +2,42 @@ import React from 'react'
 import { useCartStore, useProductStore } from '../../store/store'
 import { useNavigate } from 'react-router-dom';
 
-function ModalsProduct({productId}) {
-    const products = useProductStore(state=>state.products);
-    const product = products?.find(item => item.id === productId);
+function ModalsProduct({ activePing }) {
+  const products = useProductStore((state) => state.products);
 
-    const addToCart = useCartStore(state => state.addToCart);
+  const product = products && activePing
+    ? products.find((p) => String(p.productId) === activePing.productId)
+    : null;
 
-    const navigate = useNavigate();
+  const addToCart = useCartStore((state) => state.addToCart);
+  const navigate = useNavigate();
+
+  if (!activePing || !product) return null;
+
   return (
-    <div className='max-w-44 absolute top-3 p-3 rounded-lg bg-white shadow-black/20 shadow-lg'>
-      {product && <>
-        <img src={product.image} alt={product.title} onClick={() => navigate(`/product/${productId}`)} />
-        <p>{product.description}</p>
-        <button type="button" onClick={() => addToCart(product)} className='bg-orange-400 rounded-full text-sm mt-3 text-white px-3 py-1'>Add to Cart</button>
-      </>}
+    <div
+      className="w-52 absolute left-1/2 -translate-x-1/2 bg-white shadow-black/20 shadow-lg p-3 rounded-lg text-center z-50"
+      style={{
+        top: activePing?.top,
+      }}
+    >
+      <img
+        src={product.image}
+        alt={product.title}
+        loading='lazy'
+        onClick={() => navigate(`/product/${activePing.productId}`)}
+        className="cursor-pointer mb-2"
+      />
+      <p className="text-sm text-gray-700 line-clamp-2">{product.description}</p>
+      <button
+        type="button"
+        onClick={() => addToCart(product)}
+        className="bg-orange-400 rounded-full text-xs mt-3 text-white px-3 py-1 hover:bg-orange-500"
+      >
+        Add to Cart
+      </button>
     </div>
-  )
+  );
 }
 
 export default ModalsProduct;

@@ -2,10 +2,10 @@ import React from 'react';
 import { useAuthForm } from './useAuthForm';
 import { Spin } from 'antd';
 
-function Register({section}) {
+function Register() {
     const {errors,loading,register,handleSubmit, onSubmit} = useAuthForm("register");
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={`w-full transition duration-200 ease-in flex flex-col gap-2.5 overflow-hidden ${section === 'login' ?"opacity-0 max-h-0 pointer-events-none":"opacity-100 h-auto pointer-events-auto"}`}>
+    <form onSubmit={handleSubmit(onSubmit)} className={`w-full transition duration-200 ease-in flex flex-col gap-2.5 overflow-hidden `}>
         <h3 className='text-gray-800 font-semibold text-xl md:text-2xl'>Register</h3>
         <div className='flex flex-col'>
             <label htmlFor="usernamee" className='ml-1 mb-2 text-gray-700'>username</label>

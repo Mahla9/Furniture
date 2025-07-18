@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import BannerStatic from '../components/Banner/BannerStatic';
-import {useProductStore} from '../store/store';
 import ProductCard from '../components/Home/ProductCard';
 import { useParams } from 'react-router-dom';
 import { AlignJustify, LucideGrid3X3, Menu } from 'lucide-react';
@@ -12,7 +11,7 @@ import useProductData from '../hooks/useProductData';
 import { Spin } from 'antd';
 
 function ProductsByCategory() {
-  const products = useProductStore(state=>state.products);
+  const {products} = useProductData();
   const {isError, isLoading: isProductLoading} = useProductData;
   const { category } = useParams();
 
@@ -109,7 +108,7 @@ function ProductsByCategory() {
         <div className='basis-4/5 flex flex-col gap-6'>
           {/* Top Controls */}
           <div className='flex justify-between items-center'>
-            <div className='flex items-center gap-3'>
+            <div className='flex lg:hidden items-center gap-3'>
               <Menu onClick={() => setShowFilterbar(!showFilterbar)} className='lg:hidden cursor-pointer size-9' />
               <span className='text-sm font-semibold text-slate-600'>Show Filterbar</span>
             </div>
@@ -119,7 +118,7 @@ function ProductsByCategory() {
 
             <div className='flex items-center gap-3 '>
               <div className='hidden lg:flex items-center gap-2'>
-                <span className='text-gray-800 text-sm'>Show:</span>
+                <span className='text-gray-800 text-xs xl:text-sm'>Show:</span>
                 {[9, 12, 18, 24].map((num) => (
                   <button
                     key={num}

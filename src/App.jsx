@@ -1,5 +1,5 @@
 import './index.css';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import Articles from './components/Home/articles/Articles';
 import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth';
@@ -10,14 +10,18 @@ import ProductsByCategory from './Pages/ProductsByCategory';
 import Checkout from './Pages/Checkout';
 import CompletedOrder from './Pages/CompletedOrder';
 import Wishlist from './components/Home/Wishlist';
-import { useAuth } from './store/store';
+import { useAuth, useCartStore } from './store/store';
 import ProductDetails from './Pages/ProductDetails';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { ToastContainer } from 'react-toastify';
+import ForgotPassword from './components/Auth/ForgotPassword';
+import ResetPassword from './components/Auth/ResetPassword';
 
 
 function App() {
   const getSessionUser = useAuth(state=>state.getSessionUser);
+  const items = useCartStore(state=>state.items);
+  const lengthItemsCart = useMemo(()=>items.length, [ items]);
 
   useEffect(()=>{
     getSessionUser()
@@ -64,23 +68,32 @@ function App() {
     },
     {
       path: '/auth/:section',
-      element: isLoggedIn ? <Home/> : <Auth/>
+      element: isLoggedIn ? <Navigate to={'/'} /> : <Auth/>
     },
     {
       path:"/products/:category",
       element: <ProductsByCategory/>
-    },{
+    },
+    {
       path: "/product/:productId",
       element: <ProductDetails/>
     },
     {
       path:"/checkout",
-      element: <Checkout/>
+      element: lengthItemsCart>0 ? <Checkout/> : <Navigate to={'/'} />
     },
     {
       path:"/checkout/completed",
-      element: <CompletedOrder/>
-    }
+      element: lengthItemsCart>0 ? <CompletedOrder/> : <Navigate to={'/'} />
+    },
+    {
+      path: "/forgot-password",
+      element: <ForgotPassword/>
+    },
+    {
+      path: "/reset-password",
+      element: <ResetPassword/>
+    },
     // {
     //   path:"/articles/:id",
     //   element: <ArticleDetails/>

@@ -2,10 +2,11 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { useAuth } from '../../store/store';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useShallow } from 'zustand/shallow';
+
 
 export const useAuthForm = (formType) => {
   const [loading, setLoading] = useState(false);
@@ -16,13 +17,14 @@ export const useAuthForm = (formType) => {
     signIn: state.signIn,
   })));
 
-  const schema = yup.object().shape({
+  const schema = useMemo(() => yup.object().shape({
     email: yup.string().required('Email required').email('Invalid email'),
     password: yup.string().required('Password required').min(5),
     ...(formType === 'register' && {
       username: yup.string().required('Username required'),
     }),
-  });
+}), [formType]);
+
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
     resolver: yupResolver(schema),

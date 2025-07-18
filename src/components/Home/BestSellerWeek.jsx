@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useMemo } from 'react';
 import useProductData from '../../hooks/useProductData'
 import ProductCard from './ProductCard';
 import { useProductStore } from '../../store/store';
@@ -11,7 +11,11 @@ function BestSellerWeek() {
 
   const products = useProductStore(state=>state.bestSeller);
 
-  const filteredProducts = products?.length>0 && active === "all" ? products : products.filter(p=>p.category.toLowerCase() === active);
+  const filteredProducts = useMemo(() => {
+  if (!products) return [];
+  return active === 'all' ? products : products.filter(p => p.category.toLowerCase() === active);
+}, [products, active]);
+
   
   return (
     <div className='flex flex-col my-20'>

@@ -29,7 +29,7 @@ function Filterbar({categoryProducts,setSelectedBrands, setSelectedColors, price
   }, [categoryProducts]) ;
 
   return (
-    <div className={`basis-1/5 lg:ml-3 py-4 px-6 w-72 bg-white rounded shadow-md h-screen lg:h-auto flex flex-col gap-9 overflow-y-auto`}>
+    <div className={`basis-1/5 lg:ml-3 py-4 px-6 w-72 lg:w-60 xl:w-72 bg-white rounded shadow-md h-screen lg:h-auto flex flex-col gap-9 overflow-y-auto`}>
 
         {showFilterbar && <span className='text-slate-500 border-b pb-3 cursor-pointer' onClick={() => setShowFilterbar(false)}>X close </span>}
         {/* filter by price */}

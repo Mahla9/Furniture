@@ -4,12 +4,14 @@ import ArticleCard from './ArticleCard';
 import Header from '../../Header/Header';
 import Footer from '../../Footer/Footer';
 import { useArticleStore } from '../../../store/store';
+import useArticlesData from '../../../hooks/useArticlesData';
 
 function Articles() {
   const queryClient = useQueryClient();
   const [currentPage, setCurrentPage] = useState(1);
 
-  const articles = useArticleStore(state=>state.articles)
+  const articles = useArticleStore(state=>state.articles);
+  const {isLoading, isError} = useArticlesData();
 
   const totalPages = [Math.ceil(articles?.length / 8)];
 

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 function bannerStatic({pathName}) {
   return (
     <div className='relative'>
-      <img src="/images/banner.jpeg" alt="banner" className='w-full h-full object-cover'/>
+      <img src="/images/banner.webp" alt="banner" className='w-full h-full object-cover'/>
       <div className='absolute left-16 top-1/2 -translate-y-1/2'>
         <h2 className='text-xl md:text-2xl lg:text-3xl xl:text-5xl text-white font-semibold'>My account</h2>
 

@@ -1,11 +1,11 @@
 import React from 'react';
 
 const brands = [
-    {id:1, brand:"Elitis", image:"/images/brands/elitis.jpeg", logo:"/images/brands/elitis-logo.png", country: "Talosa / France"},
-    {id:2, brand:"Hay", image:"/images/brands/hay.jpeg", logo:"/images/brands/hay-logo.png", country: "Barcelona / Spain"},
-    {id:3, brand:"Kettal", image:"/images/brands/kettal.jpeg", logo:"/images/brands/kettal-logo.png", country: "Barcelona / Spain"},
-    {id:4, brand:"Llardo", image:"/images/brands/llardo.jpeg", logo:"/images/brands/llardo-logo.png", country: "Valencia / Spain"},
-    {id:5, brand:"Poliform", image:"/images/brands/poliform.jpeg", logo:"/images/brands/poliform-logo.png", country: "Como / Italy"}
+    {id:1, brand:"Elitis", image:"/images/brands/elitis.webp", logo:"/images/brands/elitis-logo.png", country: "Talosa / France"},
+    {id:2, brand:"Hay", image:"/images/brands/hay.webp", logo:"/images/brands/hay-logo.png", country: "Barcelona / Spain"},
+    {id:3, brand:"Kettal", image:"/images/brands/kettal.webp", logo:"/images/brands/kettal-logo.png", country: "Barcelona / Spain"},
+    {id:4, brand:"Llardo", image:"/images/brands/llardo.webp", logo:"/images/brands/llardo-logo.png", country: "Valencia / Spain"},
+    {id:5, brand:"Poliform", image:"/images/brands/poliform.webp", logo:"/images/brands/poliform-logo.png", country: "Como / Italy"}
 ]
 
 function ShoppingByBrand() {
@@ -22,7 +22,7 @@ function ShoppingByBrand() {
         {brands.slice(0,4).map(brand=>(
         <div key={brand.id} className='relative cursor-pointer rounded-lg overflow-hidden transition-all duration-200 ease-in group'>
             <div className='w-full h-full custom-shadow'>
-                <img src={brand.image} alt={brand.brand} />
+                <img loading='lazy' src={brand.image} alt={brand.brand} />
             </div>
             <div className='flex gap-3 absolute top-4 left-4'>
                 <img src={brand.logo} alt={brand.brand} />

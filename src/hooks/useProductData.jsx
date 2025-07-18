@@ -15,15 +15,11 @@ const fetchProducts = async () => {
 };
 
 function useProductData() {
-    const {setProducts, setBestSeller, setNewProducts, setChairs, setSofas, setTables, setArmchairs} = useProductStore(
+    const {setProducts, setBestSeller, setNewProducts} = useProductStore(
         useShallow(state=>({
             setProducts: state.setProducts,
             setBestSeller: state.setBestSeller,
             setNewProducts: state.setNewProducts,
-            setChairs: state.setChairs,
-            setSofas: state.setSofas,
-            setTables: state.setTables,
-            setArmchairs: state.setArmchairs
         }))
     )
 
@@ -37,7 +33,7 @@ function useProductData() {
       if(products?.length>0) {
         setProducts(products);
         setBestSeller(products.filter(p=>p.bestSeller));
-        setNewProducts(products.filter(p=>p.isNew))
+        setNewProducts(products.filter(p=>p.isNew));
     }
     },[products, setProducts,setBestSeller,setNewProducts])
     // on error

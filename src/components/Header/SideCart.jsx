@@ -55,7 +55,7 @@ function SideCart() {
             {/* foot */}
             {items?.length>0 &&
             <div className='py-3 px-5 fixed bottom-0 inset-x-0 bg-white shadow-[0_-4px_6px_-1px_rgba(203,213,225,0.5)]'>
-                <CalculateTotal />
+                <CalculateTotal toggleSideCart={toggleSideCart}/>
             </div>}
         </div>
 

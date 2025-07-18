@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 function AboutStore() {
     const [isExpanded, setIsExpanded] = useState(false)
-  return (
+    return (
     <div className=' my-8'>
         <div className={`relative overflow-hidden ${isExpanded? "h-auto" : " max-h-52"}`}>
             <h3 className='text-gray-800 font-semibold text-lg mb-4'>Online store with a wide selection of furniture and decor</h3>
