@@ -24,24 +24,46 @@ function App() {
   const lengthItemsCart = useMemo(()=>items.length, [items]);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) {
+    supabase.auth.getSession().then(async ({ data }) => {
+      if (data?.session?.user) {
+        const user = data.session.user;
+
+        // گرفتن پروفایل از جدول profiles
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("username, wishlist")
+          .eq("id", user.id)
+          .single();
+
         useAuth.setState({
-          user: data.session.user,
+          user: { ...user, username: profile?.username || "" },
           isLoggedIn: true,
+          wishList: profile?.wishlist || []
         });
       }
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      useAuth.setState({
-        user: session?.user || null,
-        isLoggedIn: !!session?.user,
-      });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      if (session?.user) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("username, wishlist")
+          .eq("id", session.user.id)
+          .single();
+
+        useAuth.setState({
+          user: { ...session.user, username: profile?.username || "" },
+          isLoggedIn: true,
+          wishList: profile?.wishlist || []
+        });
+      } else {
+        useAuth.setState({ user: null, isLoggedIn: false, wishList: [] });
+      }
     });
 
     return () => subscription.unsubscribe();
   }, []);
+
 
   const isLoggedIn = useAuth(state=>state.isLoggedIn);
 
