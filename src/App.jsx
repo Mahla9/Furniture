@@ -12,17 +12,13 @@ import CompletedOrder from './Pages/CompletedOrder';
 import Wishlist from './components/Home/Wishlist';
 import { useAuth, useCartStore } from './store/store';
 import ProductDetails from './Pages/ProductDetails';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { ToastContainer } from 'react-toastify';
 import ForgotPassword from './components/Auth/ForgotPassword';
 import ResetPassword from './components/Auth/ResetPassword';
 
 
 function App() {
-  useEffect(() => {
-    useAuth.getState().initAuth();
-  }, []);
-
   const items = useCartStore(state=>state.items);
   const lengthItemsCart = useMemo(()=>items.length, [items]);
 

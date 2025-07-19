@@ -156,7 +156,7 @@ export const useAuth = create((set, get) => ({
     set({ user: null, isLoggedIn: false, wishList: [] });
   },
 
-  // INIT AUTH (برای رفرش صفحه)
+  // INIT AUTH for refresh
   initAuth: async () => {
     const { data, error } = await supabase.auth.getSession();
     if (error || !data?.session?.user) {
