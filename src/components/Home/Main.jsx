@@ -12,7 +12,7 @@ const AboutStore = lazy(() => import('./AboutStore'));
 function Main() {
   return (
     <main className='container'>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div className='my-16 w-full flex justify-center'>Loading...</div>}>
         <CategoriesSection />
         <BestSellerWeek />
         <ShoppingByBrand />

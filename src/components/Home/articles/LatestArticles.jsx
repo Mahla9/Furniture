@@ -28,8 +28,8 @@ function LatestArticles() {
     <div className='my-8'>
       {/* سربرگ سکشن */}
       <div className='flex justify-between items-center mb-10 text-gray-800'>
-        <h3 className='font-semibold text-xl md:text-2xl lg:text-3xl'>Latest articles</h3>
-        <HashLink smooth to="/articles#articles" className=' bg-white rounded-full flex items-center px-3 py-2 transition-all duration-150 ease-linear cursor-pointer hover:bg-gray-200'>
+        <h3 className='font-semibold text-lg sm:text-xl md:text-2xl lg:text-3xl'>Latest articles</h3>
+        <HashLink smooth to="/articles#articles" className='text-xs sm:text-base bg-white rounded-full flex items-center px-3 py-2 transition-all duration-150 ease-linear cursor-pointer hover:bg-gray-200'>
           visit the blog <MoveRight className='ml-1'/>
         </HashLink>
       </div>
@@ -37,7 +37,7 @@ function LatestArticles() {
       {/* نگهدارنده مقالات */}
       <div className='flex w-full gap-2 overflow-x-scroll no-scrollbar'>
       {latestArticles?.length>0 && latestArticles.map(article=>(
-        <div key={article.id} className='w-1/2 shrink-0 md:w-1/3 lg:w-1/4'>
+        <div key={article.id} className=' shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4'>
           <ArticleCard article={article}/>
         </div>
       ))}

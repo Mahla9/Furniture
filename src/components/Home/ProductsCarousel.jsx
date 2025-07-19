@@ -43,11 +43,11 @@ function ProductsCarousel() {
 
       
   return (
-    <div className='w-full mx-2 md:mx-0 md:max-w-lg lg:max-w-2xl xl:max-w-4xl group/carousel'>
+    <div className='relative mx-2 md:mx-0 group/carousel'>
       <ChevronLeft className={`absolute top-1/2 -translate-x-1/2 -left-3 cursor-pointer transition-opacity ease-in-out duration-200 md:opacity-0 group-hover/carousel:opacity-100 ${start?"text-gray-400 pointer-events-none" : "text-gray-800"}`} onClick={()=>scrollSmoothly(-300)}/>
       <ChevronRight className={`absolute top-1/2 -translate-x-1/2 -right-10 cursor-pointer transition-opacity ease-in-out duration-200 md:opacity-0 group-hover/carousel:opacity-100 ${end?"text-gray-400 pointer-events-none":"text-gray-800"}`} onClick={()=>scrollSmoothly(300)} />
       
-      <div ref={scrollRef} className='flex gap-5 overflow-x-auto no-scrollbar shadow-xl shadow-gray-300'>   
+      <div ref={scrollRef} className='flex w-full gap-4 overflow-x-auto no-scrollbar shadow-xl shadow-gray-300'>   
         {newCollection?.length>0 && newCollection.map(product=>(
           <ProductCard key={product.productId} product={product} list="col" carousel={true}/>
         ))}

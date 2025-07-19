@@ -19,17 +19,19 @@ function BannerSlider() {
       else setCurrentSlide(currentSlide-1)
     }
 
-     useEffect(()=>{
-      setInterval(()=>{
-        nextSlide()
-      },15000)
-    },[]);
+    useEffect(() => {
+      const interval = setInterval(() => {
+        nextSlide();
+      }, 15000);
+      return () => clearInterval(interval);
+    }, []);
+
 
   // اگر کاربر دکمه قبلی فشار داد ترنسلیت ایکس بشه ولی اگ دکمه بعدی رو فشار داد ترنسلیت منفی ایکس بشه
   return (
     <div className='w-full h-[calc(100vh-140px)] relative flex'>
       {slides.map((slide, index)=>(
-        <div key={index} style={{ backgroundImage: `url(${slide.image})` }} 
+        <div key={index} style={{ backgroundImage: `url(${slide.image})` , backgroundPosition:'center' }} 
         className={`pl-14 lg:pl-28 absolute inset-0 bg-cover bg-no-repeat bg-center flex flex-col justify-around items-start transition-all ease-linear duration-500
         ${currentSlide===index ? "translate-x-0" : "-translate-x-full "}`}>
             <div className='flex gap-2 items-center text-gray-700 font-semibold'>
@@ -43,13 +45,13 @@ function BannerSlider() {
                 <div className='text-xl md:text-2xl lg:text-3xl xl:text-4xl'>
                   <h2>{slide.text} </h2> 
                   <div className='flex'>
-                    by <img className='mx-3' src={slide.avatar} alt={slide.artist} /> {slide.artist}
+                    by <img className='mx-3 w-[40px] sm:w-auto' src={slide.avatar} alt={slide.artist} /> {slide.artist}
                   </div>
                   
                 </div>
                 <div className='mt-4 flex gap-3 items-center group'>
-                    <button type='button' className='bg-white px-3.5 py-2.5 rounded-3xl transition-all ease-in duration-150 group hover:bg-gray-200'>Shop Now</button>
-                    <span className='text-2xl'>${slide.price}</span>
+                    <button type='button' className='bg-white text-xs md:text-xl px-2 md:px-3.5 py-1 md:py-2.5 rounded-3xl transition-all ease-in duration-150 group hover:bg-gray-200'>Shop Now</button>
+                    <span className='text-lg md:text-2xl'>${slide.price}</span>
                 </div>
             </div>
         </div>

@@ -42,14 +42,14 @@ function Footer() {
             </div>
             {/* right footer */}
             <div className='flex flex-col items-start gap-5'>
-                <div className='flex gap-2 mb-8'>
-                    <h4 className='text-white text-xl'>Subscribe us:</h4>
+                <div className='flex items-center gap-2 mb-8'>
+                    <h4 className='text-white text-xs sm:text-xl'>Subscribe us:</h4>
                     {/* sicials media icons */}
                     <div className='flex gap-2'>
-                        <img src="/images/social-network/icons8-instagram-32.png" alt="instagram" />
-                        <img src="/images/social-network/icons8-linkedin-32.png" alt="linkedin" />
-                        <img src="/images/social-network/icons8-x-32.png" alt="x" />
-                        <img src="/images/social-network/icons8-youtube-32.png" alt="youtube" />
+                        <img src="/images/social-network/icons8-instagram-32.png" alt="instagram" className="w-8 h-8 md:w-auto md:h-auto"/>
+                        <img src="/images/social-network/icons8-linkedin-32.png" alt="linkedin" className="w-8 h-8 md:w-auto md:h-auto"/>
+                        <img src="/images/social-network/icons8-x-32.png" alt="x" className="w-8 h-8 md:w-auto md:h-auto"/>
+                        <img src="/images/social-network/icons8-youtube-32.png" alt="youtube" className="w-8 h-8 md:w-auto md:h-auto"/>
                     </div>
                 </div>
                 <div className='flex flex-col gap-3'>

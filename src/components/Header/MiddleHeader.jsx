@@ -3,7 +3,7 @@ import Sidebar from './Sidebar';
 import SideLogin from './SideLogin'
 import { useAuth, useCartStore } from '../../store/store';
 import SideCart from './SideCart';
-import { Heart, Shuffle, UserRound } from 'lucide-react';
+import { Heart, Menu, Shuffle, UserRound } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
 import Searchbox from './Searchbox';
@@ -34,16 +34,12 @@ function MiddleHeader() {
   return (
     <div className='flex justify-between lg:justify-stretch items-center px-4 py-2'>
         {/* menu hamburger */}
-        <button className='lg:hidden bg-transparent border-none size-2' onClick={()=>setShowSidebar(!showSidebar)}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-        </button>
+        <Menu className='size-6 lg:hidden bg-transparent border-none' onClick={()=>setShowSidebar(!showSidebar)}/>
         
         <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar}/>
 
         {/* logo */}
-        <h1 className='font-bold text-black size-8 text-3xl w-auto mr-4 leading-8'> Furniture </h1>
+        <h1 className='font-bold text-black size-8 text-xl md:text-3xl w-auto mr-4 leading-8'> Furniture </h1>
 
         {/* search bar */}
         <div className='hidden lg:block w-full'><Searchbox/></div>

@@ -25,7 +25,7 @@ function ProductCard({product,list,carousel}) {
     const discountedPrice = (product)=> (product.price - (product.price * product.discount / 100));
 
   return (
-    <div key={product.productId} className={`relative bg-white flex ${carousel && "w-1/2 lg:w-1/3 shrink-0"} ${list === "col" ? "flex-col hover:-translate-y-3" : "flex-row"} rounded-lg shadow-lg shadow-gray-300 overflow-hidden transition-transform duration-150 ease-in group/card`}>
+    <div key={product.productId} className={`relative ${carousel ? "w-48 sm:min-w-60 md:min-w-54 shrink-0" : "" } bg-white flex  ${list === "col" ? "flex-col hover:-translate-y-3" : "flex-row"} rounded-lg shadow-lg shadow-gray-300 overflow-hidden transition-transform duration-150 ease-in group/card`}>
             <Heart className={`absolute top-2 right-2 w-5 z-10 cursor-pointer ${isLiked?"fill-red-700 stroke-red-700":"fill-none stroke-gray-500"}`} onClick={()=>handleLiked(product)} />
             <div className='absolute top-2 left-2 z-10'>
             {product.discount && <div className='px-2 mb-1 bg-orange-400 rounded-xl text-white text-center text-sm'>-{product.discount}%</div>}
