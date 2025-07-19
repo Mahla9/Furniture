@@ -106,12 +106,12 @@ export const useAuth = create((set, get) => ({
   // LOGIN
   signIn: async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({email, password}) ;
-    console.log("🟢 SIGNIN RESPONSE =>", data, error);
+    console.log(" SIGNIN RESPONSE =>", data, error);
 
     const sessionUser = data.user || data.session.user;
 
     if (error || !sessionUser) {
-      console.warn("❌ Login failed. Reason:", error?.message || "No user returned");
+      console.warn(" Login failed. Reason:", error?.message || "No user returned");
       return { error: error || new Error("No user returned from login") };
     }
     const userId = sessionUser.id;
@@ -154,6 +154,35 @@ export const useAuth = create((set, get) => ({
   signOut: async () => {
     await supabase.auth.signOut();
     set({ user: null, isLoggedIn: false, wishList: [] });
+  },
+
+  // INIT AUTH (برای رفرش صفحه)
+  initAuth: async () => {
+    const { data, error } = await supabase.auth.getSession();
+    if (error || !data?.session?.user) {
+      set({ user: null, isLoggedIn: false });
+      return;
+    }
+
+    const sessionUser = data.session.user;
+    const userId = sessionUser.id;
+
+    const { data: profile, error: profileError } = await supabase
+      .from("profiles")
+      .select("wishlist, username")
+      .eq("id", userId)
+      .single();
+
+    if (profileError) {
+      set({ user: sessionUser, isLoggedIn: true, wishList: [] });
+      return;
+    }
+
+    set({
+      user: { ...sessionUser, username: profile?.username || "" },
+      isLoggedIn: true,
+      wishList: profile?.wishlist || [],
+    });
   },
 
   toggleWishList: async (product) => {

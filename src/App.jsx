@@ -16,54 +16,15 @@ import { useEffect, useMemo } from 'react';
 import { ToastContainer } from 'react-toastify';
 import ForgotPassword from './components/Auth/ForgotPassword';
 import ResetPassword from './components/Auth/ResetPassword';
-import { supabase } from './supabaseClient';
 
 
 function App() {
-  const items = useCartStore(state=>state.items);
-  const lengthItemsCart = useMemo(()=>items.length, [items]);
-
   useEffect(() => {
-    supabase.auth.getSession().then(async ({ data }) => {
-      if (data?.user || data?.session?.user) {
-        const user = data.user || data.session.user;
-
-        // گرفتن پروفایل از جدول profiles
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("username, wishlist")
-          .eq("id", user.id)
-          .single();
-
-        useAuth.setState({
-          user: { ...user, username: profile?.username || "" },
-          isLoggedIn: true,
-          wishList: profile?.wishlist || []
-        });
-      }
-    });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      if (session?.user) {
-        const { data: profile } = await supabase
-          .from("profiles")
-          .select("username, wishlist")
-          .eq("id", session.user.id)
-          .single();
-
-        useAuth.setState({
-          user: { ...session.user, username: profile?.username || "" },
-          isLoggedIn: true,
-          wishList: profile?.wishlist || []
-        });
-      } else {
-        useAuth.setState({ user: null, isLoggedIn: false, wishList: [] });
-      }
-    });
-
-    return () => subscription.unsubscribe();
+    useAuth.getState().initAuth();
   }, []);
 
+  const items = useCartStore(state=>state.items);
+  const lengthItemsCart = useMemo(()=>items.length, [items]);
 
   const isLoggedIn = useAuth(state=>state.isLoggedIn);
 
