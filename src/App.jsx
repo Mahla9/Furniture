@@ -9,13 +9,14 @@ import PrivateRoute from './components/PrivateRoute';
 import ProductsByCategory from './Pages/ProductsByCategory';
 import Checkout from './Pages/Checkout';
 import CompletedOrder from './Pages/CompletedOrder';
-import Wishlist from './components/Home/Wishlist';
+import Wishlist from './Pages/Wishlist';
 import { useAuth, useCartStore } from './store/store';
 import ProductDetails from './Pages/ProductDetails';
 import { useMemo } from 'react';
 import { ToastContainer } from 'react-toastify';
 import ForgotPassword from './components/Auth/ForgotPassword';
 import ResetPassword from './components/Auth/ResetPassword';
+import Shop from './Pages/Shop';
 
 
 function App() {
@@ -84,6 +85,10 @@ function App() {
       path: "/reset-password",
       element: <ResetPassword/>
     },
+    {
+      path: "/shop",
+      element: <Shop/>
+    }
     // {
     //   path:"/articles/:id",
     //   element: <ArticleDetails/>

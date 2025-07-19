@@ -31,7 +31,7 @@ function BannerSlider() {
   return (
     <div className='w-full h-[calc(100vh-140px)] relative flex'>
       {slides.map((slide, index)=>(
-        <div key={index} style={{ backgroundImage: `url(${slide.image})` , backgroundPosition:'center' }} 
+        <div key={index} style={{ backgroundImage: `url(${slide.image})` , backgroundPosition:'center', backgroundSize:'cover' }} 
         className={`pl-14 lg:pl-28 absolute inset-0 bg-cover bg-no-repeat bg-center flex flex-col justify-around items-start transition-all ease-linear duration-500
         ${currentSlide===index ? "translate-x-0" : "-translate-x-full "}`}>
             <div className='flex gap-2 items-center text-gray-700 font-semibold'>

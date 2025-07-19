@@ -1,8 +1,8 @@
 import React from 'react';
-import ProductCard from './ProductCard';
-import { useAuth } from '../../store/store';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
+import ProductCard from '../components/Home/ProductCard';
+import { useAuth } from '../store/store';
+import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
 
 function Wishlist() {
     const isLoggedIn = useAuth(state=>state.isLoggedIn);

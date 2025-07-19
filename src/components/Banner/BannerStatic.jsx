@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function bannerStatic({pathName}) {
+function BannerStatic() {
   return (
     <div className='relative'>
       <img src="/images/banner.webp" alt="banner" className='w-full h-full object-cover'/>
@@ -13,11 +13,11 @@ function bannerStatic({pathName}) {
         */}
         <div className='text-white font-semibold mt-6'>
             <Link to='/' className='font-normal text-gray-600 transition-all duration-200 ease-linear cursor-pointer hover:text-white'>
-            Home /</Link> {pathName}
+            Home /</Link> 
         </div>
       </div>
     </div>
   )
 }
 
-export default bannerStatic
+export default BannerStatic
