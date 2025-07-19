@@ -66,7 +66,7 @@ function ProductDetails() {
             {/* left or bottom section */}
             <div >
               <h2 className='text-2xl font-semibold mb-6'>Description</h2>
-              <img src="/images/description-about-product.jpg" alt="description about product" className='rounded-lg'/>
+              <img src="/images/description-about-product.webp" alt="description about product" className='rounded-lg'/>
               <p className='my-6 text-slate-600'>The company reinterprets tradition by calling upon international designers to work with them and developing new technologies and materials to guarantee innovative and surprising results. Passion is the engine that drives the brand – together with its renowned creatives and high-profile collaborators – to search for original solutions using advanced materials, methods, tools, and technologies.</p>
               <ul className='list-disc list-inside text-slate-600 marker:text-orange-400'>
                 <li>Choose items in a single color scheme and style</li>

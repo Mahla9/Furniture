@@ -17,6 +17,7 @@ import { ToastContainer } from 'react-toastify';
 import ForgotPassword from './components/Auth/ForgotPassword';
 import ResetPassword from './components/Auth/ResetPassword';
 import Shop from './Pages/Shop';
+import Layout from './Layout';
 
 
 function App() {
@@ -25,75 +26,54 @@ function App() {
 
   const isLoggedIn = useAuth(state=>state.isLoggedIn);
 
-  const router = createBrowserRouter([
+    const router = createBrowserRouter([
     {
-      path: "/",
-      element: <Home />,
-      // errorElement: <ErrorPage />
+      path: '/',
+      element: <Layout />, // همه صفحات داخل Layout رندر می‌شوند
+      children: [
+        { index: true, element: <Home /> }, // صفحه اصلی
+        { path: 'articles', element: <Articles /> },
+        { path: 'search', element: <SearchResults /> },
+        { path: 'wishlist', element: <Wishlist /> },
+        { path: 'products/:category', element: <ProductsByCategory /> },
+        { path: 'product/:productId', element: <ProductDetails /> },
+        { path: 'shop', element: <Shop /> },
+        { 
+          path: 'dashboard', 
+          element: (
+            <PrivateRoute>
+              <DashboardContainer />
+            </PrivateRoute>
+          )
+        },
+        { 
+          path: 'dashboard/:content', 
+          element: (
+            <PrivateRoute>
+              <DashboardContainer />
+            </PrivateRoute>
+          )
+        },
+        {
+          path: 'auth/:section',
+          element: isLoggedIn ? <Navigate to="/" /> : <Auth />
+        },
+        { 
+          path: 'checkout', 
+          element: lengthItemsCart > 0 ? <Checkout /> : <Navigate to="/" /> 
+        },
+        { 
+          path: 'checkout/completed', 
+          element: lengthItemsCart > 0 ? <CompletedOrder /> : <Navigate to="/" /> 
+        },
+        { path: 'forgot-password', element: <ForgotPassword /> },
+        { path: 'reset-password', element: <ResetPassword /> },
+      ]
     },
-    {
-      path: "/dashboard",
-      element:(
-        <PrivateRoute>
-          <DashboardContainer/>
-        </PrivateRoute>
-      )
-    },{
-      path: '/dashboard/:content',
-      element: (
-        <PrivateRoute>
-          <DashboardContainer/>
-        </PrivateRoute>
-      )
-    },
-    {
-      path: "/search",
-      element: <SearchResults/>
-    },{
-      path: '/wishlist',
-      element:<Wishlist/> 
-    },
-    {
-      path:"/articles",
-      element: <Articles/>
-    },
-    {
-      path: '/auth/:section',
-      element: isLoggedIn ? <Navigate to={'/'} /> : <Auth/>
-    },
-    {
-      path:"/products/:category",
-      element: <ProductsByCategory/>
-    },
-    {
-      path: "/product/:productId",
-      element: <ProductDetails/>
-    },
-    {
-      path:"/checkout",
-      element: lengthItemsCart>0 ? <Checkout/> : <Navigate to={'/'} />
-    },
-    {
-      path:"/checkout/completed",
-      element: lengthItemsCart>0 ? <CompletedOrder/> : <Navigate to={'/'} />
-    },
-    {
-      path: "/forgot-password",
-      element: <ForgotPassword/>
-    },
-    {
-      path: "/reset-password",
-      element: <ResetPassword/>
-    },
-    {
-      path: "/shop",
-      element: <Shop/>
-    }
-    // {
-    //   path:"/articles/:id",
-    //   element: <ArticleDetails/>
-    // }
+    // اگر مسیر اشتباه بود، هدایت شود
+    { path: '*', element: <Navigate to="/" /> }
   ]);
+
   
 
   return (

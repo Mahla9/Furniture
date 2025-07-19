@@ -13,7 +13,7 @@ function Brand({ brand }) {
     <div className='container my-9 grid lg:grid-cols-2 gap-6 py-6 px-6 rounded-lg bg-white'>
         <div>
             <h2 className='text-2xl font-semibold pb-3 pl-3'>About brand</h2>
-            <img src="/images/brands/brands.jpg" alt="brands" className='rounded-lg w-full'/>
+            <img src="/images/brands/brands.webp" alt="brands" className='rounded-lg w-full'/>
         </div>
 
         <div className='flex flex-col justify-center'>
