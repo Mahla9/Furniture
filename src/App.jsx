@@ -25,8 +25,8 @@ function App() {
 
   useEffect(() => {
     supabase.auth.getSession().then(async ({ data }) => {
-      if (data?.session?.user) {
-        const user = data.session.user;
+      if (data?.user || data?.session?.user) {
+        const user = data.user || data.session.user;
 
         // گرفتن پروفایل از جدول profiles
         const { data: profile } = await supabase
