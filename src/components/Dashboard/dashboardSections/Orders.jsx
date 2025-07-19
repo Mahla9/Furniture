@@ -1,36 +1,60 @@
 import React from 'react';
 import {useCheckoutStore} from '../../../store/store';
+import { Table } from 'antd';
 
 function Orders() {
   const orders = useCheckoutStore(state=>state.orders);
   const AllOrders = orders?.length>0 ? orders : [] ;
 
+  const columns = [
+    {
+      title: 'ORDER',
+      dataIndex: 'col1',
+      key: 'col1'
+    },
+    {
+      title: 'DATE',
+      dataIndex: 'col2',
+      key: 'col2'
+    },
+    {
+      title: 'STATUS',
+      dataIndex: 'col3',
+      key: 'col3'
+    },
+    {
+      title: 'TOTAL',
+      dataIndex: 'col4',
+      key: 'col4'
+    },
+    {
+      title: 'ACTIONS',
+      dataIndex: 'col5',
+      key: 'col5'
+    }
+  ];
+
+  const data = AllOrders?.map((order, index) => ({
+    key: index.toString(),
+    col1: `#${order.id || index + 1}`,            // شماره سفارش یا fallback به index
+    col2: order.date || 'N/A',
+    col3: order.status || 'Pending',
+    col4: `$${order.total || 0}`,
+    col5: <button className="text-orange-500">View</button>  // دکمه یا لینک اکشن دلخواه
+  }));
+
+
 
   return (
     <div>
       {/* recieve submited orders after success checkout */}
-      <table cellSpacing={9} cellPadding={9} >
-        <thead>
-          <tr>
-            <th>ORDER</th>
-            <th>DATE</th>
-            <th>STATUS</th>
-            <th>TOTAL</th>
-            <th>ACTIONS</th>
-          </tr>
-        </thead>
-        <tbody>
-          {AllOrders?.length && AllOrders.map(order=>(
-            <tr key={order.orderId}>
-              <td> #{order.orderId} </td>
-              <td> {order.date} </td>
-              <td> {order.status} </td>
-              <td>{order.total}</td>
-              <td> <div className='text-center text-white text-sm bg-orange-400 cursor-pointer px-4 py-2 rounded-full transition-all duration-200 ease-linear hover:bg-orange-800'>View</div> </td>
-            </tr>
-          ))} 
-        </tbody>
-      </table>
+      <Table
+        columns={columns}
+        dataSource={data}
+        bordered
+        pagination= {false}
+        scroll={{x: 'max-content'}}
+      />
     </div>
   )
 }

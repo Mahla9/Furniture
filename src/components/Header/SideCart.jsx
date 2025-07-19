@@ -21,7 +21,7 @@ function SideCart() {
         <div className={`fixed inset-0 bg-black bg-opacity-70 z-40 transition-opacity duration-300 ${openCart ? "opacity-100 visible" : "opacity-0 invisible"}`} onClick={toggleSideCart}></div>
 
         {/* cart sidebar */}
-        <div className={`fixed top-0 right-0 h-full w-80 bg-white z-50 transform transition-transform duration-300 ease-in-out ${openCart ? "translate-x-0" : "translate-x-full"}`}>
+        <div className={`fixed top-0 right-0 h-full w-64 sm:w-72 md:w-80 bg-white z-50 transform transition-transform duration-300 ease-in-out ${openCart ? "translate-x-0" : "translate-x-full"}`}>
             {/* head */}
             <div className='flex justify-between items-center px-4 py-4 shadow-[0_4px_6px_-1px_rgba(203,213,225,0.5)]'>
                 <h3 className='font-semibold text-gray-800'>Shopping cart</h3>

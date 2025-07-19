@@ -15,7 +15,7 @@ function DashboardContainer() {
       <BannerStatic/>
 
       {/* main */}
-      <div className='container flex my-9 gap-6'>
+      <div className='container flex flex-col md:flex-row my-9 gap-6'>
         {/* Sidebar ul */}
         <DashboardSidebar active={content}/>
 
