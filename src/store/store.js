@@ -149,27 +149,6 @@ export const useAuth = create((set, get) => ({
     return { data: {...sessionUser} };
   },
 
-  // GET SESSION
-  getSessionUser: async () => {
-    const { data, error } = await supabase.auth.getUser();
-    if (error || !data.user) return;
-
-    const userId = data.user.id || data.session.user.id;
-
-    const { data: profile, error: profileError } = await supabase
-      .from("profiles")
-      .select("wishlist, username")
-      .eq("id", userId)
-      .single();
-
-    if (profileError) return;
-
-    set({
-      user: { ...data.user, username: profile?.username || "" },
-      isLoggedIn: true,
-      wishList: profile?.wishlist || [],
-    });
-  },
 
   // LOGOUT
   signOut: async () => {
@@ -221,19 +200,6 @@ export const useAuth = create((set, get) => ({
     });
   },
 }));
-
-// Auth state change listener (outside the store)
-supabase.auth.onAuthStateChange(async (event) => {
-  const { getSessionUser, signOut } = useAuth.getState();
-
-  if (event === 'SIGNED_IN') {
-    await getSessionUser();
-  }
-
-  if (event === 'SIGNED_OUT') {
-    await signOut();
-  }
-});
 
 
 

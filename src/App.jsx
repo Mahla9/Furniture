@@ -16,17 +16,33 @@ import { useEffect, useMemo } from 'react';
 import { ToastContainer } from 'react-toastify';
 import ForgotPassword from './components/Auth/ForgotPassword';
 import ResetPassword from './components/Auth/ResetPassword';
+import { supabase } from './supabaseClient';
 
 
 function App() {
-  const getSessionUser = useAuth(state=>state.getSessionUser);
   const items = useCartStore(state=>state.items);
-  const lengthItemsCart = useMemo(()=>items.length, [ items]);
+  const lengthItemsCart = useMemo(()=>items.length, [items]);
 
-  useEffect(()=>{
-    getSessionUser()
-  }, [getSessionUser]);
-  
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) {
+        useAuth.setState({
+          user: data.session.user,
+          isLoggedIn: true,
+        });
+      }
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      useAuth.setState({
+        user: session?.user || null,
+        isLoggedIn: !!session?.user,
+      });
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   const isLoggedIn = useAuth(state=>state.isLoggedIn);
 
   const router = createBrowserRouter([
@@ -53,11 +69,6 @@ function App() {
     {
       path: "/search",
       element: <SearchResults/>
-    },
-    {
-      path: "/about",
-      // element: <About />,
-      // action: someFormHandler,
     },{
       path: '/wishlist',
       element:<Wishlist/> 
@@ -103,11 +114,6 @@ function App() {
 
   return (
     <>
-        {/* <h1 className="text-3xl font-bold underline text-brown-100">
-      Hello world!
-    </h1>
-    <p className='bg-slate-500 text-white font-bold'>mahla</p>
-    <div className="container bg-brown-300">testtttttt</div> */}
     <ToastContainer position='top-center' />
     <RouterProvider router={router} />
     </>
