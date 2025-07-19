@@ -86,6 +86,7 @@ export const useAuth = create((set, get) => ({
   isLoggedIn: false,
   wishList: [],
   error: null,
+  isAuthLoading: true,
 
   // REGISTER
   signUp: async (email, password, username) => {
@@ -156,34 +157,47 @@ export const useAuth = create((set, get) => ({
     set({ user: null, isLoggedIn: false, wishList: [] });
   },
 
+  
   // INIT AUTH for refresh
   initAuth: async () => {
     const { data, error } = await supabase.auth.getSession();
+
+    // اگر خطا یا کاربری نبود
     if (error || !data?.session?.user) {
-      set({ user: null, isLoggedIn: false });
+      set({ user: null, isLoggedIn: false, isAuthLoading: false }); 
       return;
     }
 
     const sessionUser = data.session.user;
     const userId = sessionUser.id;
 
+    // گرفتن پروفایل از دیتابیس
     const { data: profile, error: profileError } = await supabase
       .from("profiles")
       .select("wishlist, username")
       .eq("id", userId)
       .single();
 
+    // اگر پروفایل پیدا نشد
     if (profileError) {
-      set({ user: sessionUser, isLoggedIn: true, wishList: [] });
+      set({
+        user: sessionUser,
+        isLoggedIn: true,
+        wishList: [],
+        isAuthLoading: false,
+      });
       return;
     }
 
+    // اگر همه چیز درست بود
     set({
       user: { ...sessionUser, username: profile?.username || "" },
       isLoggedIn: true,
       wishList: profile?.wishlist || [],
+      isAuthLoading: false,
     });
   },
+
 
   toggleWishList: async (product) => {
     const { wishList, isLoggedIn, user } = get();
