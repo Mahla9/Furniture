@@ -23,7 +23,7 @@ function ModalsProduct({ activePing }) {
         top: activePing?.top,
       }}
     >
-      {loadingImg && <span className='my-3 flex justify-center items-center animate-spin border-4 border-orange-400 border-t-transparent w-6 h-6 '></span>}
+      {loadingImg && <span className='my-3 flex justify-center items-center animate-spin rounded-full border-4 border-orange-400 border-t-transparent w-6 h-6 '></span>}
       <img
         src={product.image}
         alt={product.title}
