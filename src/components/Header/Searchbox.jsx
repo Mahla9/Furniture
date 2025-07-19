@@ -17,15 +17,24 @@ function Searchbox() {
     const handleSearch =(e)=>{
         if(e.key === "Enter"){
             if(query.trim()) navigate(`/search?query=${query}`);
+            setResults([]);
             return;
         }
     };
-    const handleSearchClick = () => {
-        setResults([]);
-        navigate(`/search?query=${query}`);
+
+    const handleSearchClick = (result) => {
+        if(result.type === "Product") {
+            navigate(`/product/${result.productId}`);
+            setResults([]);
+            return
+        }else{
+            navigate(`/search?query=${query}`);
+            setResults([]);
+            return;
+        }
     };
 
-        // for show results under serach box
+    // for show results under serach box
     useEffect(()=>{
         // if user erase it query, the result erased.
         if (debouncedQuery.trim().length === 0 ) return setResults([]);
@@ -52,7 +61,7 @@ function Searchbox() {
         {results.length>0 && (
             <ul className={`absolute overflow-y-auto top-9 left-3 px-6 py-3 rounded-bl-lg rounded-br-lg bg-white z-50 shadow-lg shadow-slate-200`}>
             {results.map((result, index)=>(
-                <li onClick={handleSearchClick} key={index} className='flex gap-6 justify-between items-center mb-3'>
+                <li onClick={()=>handleSearchClick(result)} key={index} className='flex cursor-pointer py-1 px-2 transition-all duration-200 ease-in hover:bg-slate-100 gap-6 justify-between items-center mb-3'>
                     <img src={result.image} alt={result.title} className='w-10 h-10 rounded-lg aspect-square'/>
                     <span className='text-gray-400 font-semibold text-xs truncate lg:text-sm'>{result.title}</span>
                     <span className='text-gray-300 text-xs lg:text-sm'>{result.type}</span>

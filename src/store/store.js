@@ -87,6 +87,9 @@ export const useAuth = create((set, get) => ({
   wishList: [],
   error: null,
   isAuthLoading: true,
+  showSideLogin: false,
+
+  setShowSideLogin : (status)=> set({showSideLogin: status}) ,
 
   // REGISTER
   signUp: async (email, password, username) => {
@@ -109,12 +112,12 @@ export const useAuth = create((set, get) => ({
     const { data, error } = await supabase.auth.signInWithPassword({email, password}) ;
     console.log(" SIGNIN RESPONSE =>", data, error);
 
-    const sessionUser = data.user || data.session.user;
-
-    if (error || !sessionUser) {
-      console.warn(" Login failed. Reason:", error?.message || "No user returned");
-      return { error: error || new Error("No user returned from login") };
+    const sessionUser = data?.user || data?.session?.user;
+    if (!sessionUser) {
+      console.warn("Login failed: No session user found.");
+      return { error: error || new Error("Invalid login response") };
     }
+
     const userId = sessionUser.id;
     const temp = JSON.parse(localStorage.getItem('temp-wishlist')) || [];
 
@@ -157,7 +160,7 @@ export const useAuth = create((set, get) => ({
     set({ user: null, isLoggedIn: false, wishList: [] });
   },
 
-  
+
   // INIT AUTH for refresh
   initAuth: async () => {
     const { data, error } = await supabase.auth.getSession();

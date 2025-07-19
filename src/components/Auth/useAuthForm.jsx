@@ -12,9 +12,10 @@ export const useAuthForm = (formType) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const { signUp, signIn } = useAuth(useShallow((state) => ({
+  const { signUp, signIn, setShowSideLogin } = useAuth(useShallow((state) => ({
     signUp: state.signUp,
     signIn: state.signIn,
+    setShowSideLogin: state.setShowSideLogin
   })));
 
   const schema = useMemo(() => yup.object().shape({
@@ -53,10 +54,9 @@ export const useAuthForm = (formType) => {
       if (result?.error) {
         toast.error(result.error.message || "Login failed");
       } else {
-        console.log("✅ Login user ID:", result?.data?.id || result?.data?.session?.user?.id);
-        toast.success("Logged in successfully!");
         reset();
-        navigate("/dashboard");
+        toast.success("Logged in successfully!");
+        setShowSideLogin(false);
       }
     }
   } catch (err) {

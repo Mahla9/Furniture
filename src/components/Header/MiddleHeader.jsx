@@ -14,16 +14,17 @@ function MiddleHeader() {
     const items = useCartStore(state=>state.items);
     const badge = items?.length ;
 
-    const { user, isLoggedIn, signOut } = useAuth(useShallow(state=>({
+    const { user, isLoggedIn, signOut, showSideLogin, setShowSideLogin } = useAuth(useShallow(state=>({
         user: state.user,
         isLoggedIn: state.isLoggedIn,
-        signOut: state.signOut
+        signOut: state.signOut,
+        showSideLogin: state.showSideLogin,
+        setShowSideLogin: state.setShowSideLogin
     })))
 
     const navigate = useNavigate();
 
     const [showSidebar, setShowSidebar] = useState(false); //menu
-    const [showSideLogin, setShowSideLogin] = useState(false); //auth
 
     const handleAuth = () => {
         if(!isLoggedIn) setShowSideLogin(true);

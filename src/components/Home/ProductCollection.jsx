@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 
 const dots = [
     [{top:"34%", left:"64%", productId:"1"},{top:"78%", left:"23%", productId:"20"},{top:"90%", left:"85%", productId:"3"}],
-    [{top:"61%", left:"28%", productId:"13"},{top:"52%", left:"70%", productId:"2"},{top:"85%", left:"60%", productId:"2"}],
+    [{top:"61%", left:"28%", productId:"13"},{top:"52%", left:"70%", productId:"2"},{top:"85%", left:"60%", productId:"14"}],
 
     [{top:"60%", left:"43%", productId:"6"},{top:"69%", left:"63%", productId:"5"},{top:"45%", left:"83%", productId:"4"}],
     [{top:"71%", left:"20%", productId:"8"},{top:"50%", left:"79%", productId:"7"},{top:"52%", left:"10%", productId:"9"}],

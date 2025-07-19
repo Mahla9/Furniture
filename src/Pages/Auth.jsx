@@ -1,11 +1,11 @@
 import React, {Suspense} from 'react';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
-import BannerStatic from '../Banner/BannerStatic';
+import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
+import BannerStatic from '../components/Banner/BannerStatic';
 import { Link, useParams } from 'react-router-dom';
 import { Spin } from 'antd';
-const Login = React.lazy(() => import('./Login'));
-const Register = React.lazy(() => import('./Register'));
+const Login = React.lazy(() => import('../components/Auth/Login'));
+const Register = React.lazy(() => import('../components/Auth/Register'));
 
 
 function Auth() {

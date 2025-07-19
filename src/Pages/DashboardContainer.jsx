@@ -1,9 +1,9 @@
 import React from 'react';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
-import BannerStatic from '../Banner/BannerStatic';
-import DashboardSidebar from './DashboardSidebar';
-import DashboardContent from './DashboardContent';
+import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
+import BannerStatic from '../components/Banner/BannerStatic';
+import DashboardSidebar from '../components/Dashboard/DashboardSidebar';
+import DashboardContent from '../components/Dashboard/DashboardContent';
 import { useParams } from 'react-router-dom';
 
 function DashboardContainer() {

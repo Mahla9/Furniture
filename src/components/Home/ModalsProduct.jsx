@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useCartStore, useProductStore } from '../../store/store'
 import { useNavigate } from 'react-router-dom';
 
 function ModalsProduct({ activePing }) {
+  const [loadingImg, setLoadingImg] = useState(true);
+
   const products = useProductStore((state) => state.products);
 
   const product = products && activePing
@@ -21,10 +23,12 @@ function ModalsProduct({ activePing }) {
         top: activePing?.top,
       }}
     >
+      {loadingImg && <span className='my-3 flex justify-center items-center animate-spin border-4 border-orange-400 border-t-transparent w-6 h-6 '></span>}
       <img
         src={product.image}
         alt={product.title}
         loading='lazy'
+        onLoad={()=>setLoadingImg(false)}
         onClick={() => navigate(`/product/${activePing.productId}`)}
         className="cursor-pointer mb-2"
       />

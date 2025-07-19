@@ -1,17 +1,15 @@
 import { useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import ArticleCard from './ArticleCard';
-import Header from '../../Header/Header';
-import Footer from '../../Footer/Footer';
-import { useArticleStore } from '../../../store/store';
-import useArticlesData from '../../../hooks/useArticlesData';
+import ArticleCard from '../components/Home/articles/ArticleCard';
+import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
+import useArticlesData from '../hooks/useArticlesData';
 
 function Articles() {
   const queryClient = useQueryClient();
   const [currentPage, setCurrentPage] = useState(1);
 
-  const articles = useArticleStore(state=>state.articles);
-  const {isLoading, isError} = useArticlesData();
+  const {isLoading, isError, articles} = useArticlesData();
 
   const totalPages = [Math.ceil(articles?.length / 8)];
 
@@ -32,7 +30,7 @@ function Articles() {
       {/* pages button */}
       <div className='my-10 flex justify-center items-center gap-2'>
       {Array.from({length:totalPages},(_,index)=>(
-        <button key={index} className={`border-none h-8 w-8 ${currentPage === index ? "bg-orange-400 text-white" : "text-gray-800 bg-transparent"} rounded-md w-2 h-2`} 
+        <button key={index} className={`border-none h-8 w-8 ${currentPage === index+1 ? "bg-orange-400 text-white" : "text-gray-800 bg-transparent"} rounded-md w-2 h-2`} 
           onClick={()=>setCurrentPage(index+1)}
         >
           {index+1}

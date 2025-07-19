@@ -1,9 +1,9 @@
 import './index.css';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
-import Articles from './components/Home/articles/Articles';
-import Home from './components/Home/Home';
-import Auth from './components/Auth/Auth';
-import DashboardContainer from './components/Dashboard/DashboardContainer';
+import Articles from './Pages/Articles';
+import Home from './Pages/Home';
+import Auth from './Pages/Auth';
+import DashboardContainer from './Pages/DashboardContainer';
 import SearchResults from './Pages/SearchResults';
 import PrivateRoute from './components/PrivateRoute';
 import ProductsByCategory from './Pages/ProductsByCategory';
