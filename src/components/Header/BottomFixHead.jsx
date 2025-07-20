@@ -13,7 +13,7 @@ function BottomFixHead({filters,setShowFilterbar}) {
     }
 
   return (
-    <nav className='z-20 fixed bottom-0 inset-x-0 flex bg-white shadow-[0_-4px_16px_2px_rgba(0,0,0,0.35)] md:hidden py-2 px-3 justify-around items-center'>
+    <nav className='z-20 fixed bottom-0 inset-x-0 flex bg-white shadow-[0_-4px_16px_2px_rgba(0,0,0,0.35)] lg:hidden py-2 px-3 justify-around items-center'>
         <span className='flex flex-col items-center gap-1 text-slate-500' onClick={handleUser}>
             <User2/>
             <span>User</span>

@@ -3,7 +3,7 @@ import Sidebar from './Sidebar';
 import SideLogin from './SideLogin'
 import { useAuth, useCartStore } from '../../store/store';
 import SideCart from './SideCart';
-import { Heart, Menu, Shuffle, UserRound } from 'lucide-react';
+import { Heart, Menu, ShoppingCart, Shuffle, UserRound } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useShallow } from 'zustand/shallow';
 import Searchbox from './Searchbox';
@@ -32,14 +32,14 @@ function MiddleHeader() {
     }
     
   return (
-    <div className='flex justify-between lg:justify-stretch items-center px-4 py-2'>
+    <div className='flex justify-between lg:justify-stretch items-center px-4 py-3'>
         {/* menu hamburger */}
         <Menu className='size-6 lg:hidden bg-transparent border-none' onClick={()=>setShowSidebar(!showSidebar)}/>
         
         <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar}/>
 
         {/* logo */}
-        <h1 className='font-bold text-black size-8 text-xl md:text-3xl w-auto mr-4 leading-8'> Furniture </h1>
+        <h1 className='font-bold text-black text-xl lg:text-3xl w-auto md:mr-4 cursor-pointer' onClick={()=>navigate('/')}> Furniture </h1>
 
         {/* search bar */}
         <div className='hidden lg:block w-full'><Searchbox/></div>
@@ -55,7 +55,7 @@ function MiddleHeader() {
             {/* wishlist */}
             {/* onClick={navigate('/wishlist')} */}
             <div className='bg-gray-200  cursor-pointer rounded-full p-2 transition-all ease-in duration-200 hover:text-gray-600' >
-                <Heart className='stroke-[1.5px]' onClick={()=>navigate('/wishlist')}/>
+                <Heart className='stroke-[1.5px] size-5' onClick={()=>navigate('/wishlist')}/>
             </div>
 
             {/* login/register */}
@@ -83,17 +83,15 @@ function MiddleHeader() {
         {/* cart */}
         <div className='self-end lg:ml-4 relative cursor-pointer'
             onClick={toggleSideCart} >
-            <div className='bg-transparent lg:bg-black rounded-md flex py-1 px-2'>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 text-black lg:text-white">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                </svg>
+            <div className='bg-transparent lg:bg-black rounded-md flex items-center gap-1 py-1 px-2'>
+                <ShoppingCart className='text-black lg:text-white size-5'/>
                 <span className=' hidden lg:flex text-white '>
                     {subtotalPrice()>0 ? `$${subtotalPrice()}`: "$0.00"}
                 </span>
             </div>
 
             {/* badge cart */}
-            <div className='bg-orange-600 lg:bg-white text-white lg:text-orange-600 shadow-2xl w-4 h-4 absolute -top-2 -right-2 text-xs rounded-md text-center leading-4'>
+            <div className='bg-orange-600 lg:bg-white text-white lg:text-orange-600 shadow-2xl w-4 h-4 absolute -top-1 -right-2 text-xs rounded-md text-center leading-4'>
                 {badge}
             </div>
             

@@ -37,7 +37,7 @@ const goToCategory = useCallback((name) => {
       {categories.map(category=>(
         <div key={category.id} className='rounded-full overflow-hidden relative group cursor-pointer' onClick={() => goToCategory(category.name)}>
 
-          <div className="scale-110 transition-all ease-in duration-300 group-hover:scale-100 custom-shadow" >
+          <div className="scale-110 min-w-32 transition-all ease-in duration-300 group-hover:scale-100 custom-shadow" >
             <img src={category.image} alt={category.name} className='w-full h-full aspect-square '/>
           </div>
 

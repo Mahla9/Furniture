@@ -5,7 +5,7 @@ const categories = ["Chairs","Tables","Sofas","Armchairs","Beds","Storage","Text
 function Footer() {
 
   return (
-    <footer className='bg-black'>
+    <footer className='bg-black mb-8 lg:mb-0'>
         <div className='pb-12 px-10 md:px-16 flex flex-col gap-4 md:flex-row md:justify-between md:items-center border-b-[1px] border-slate-600'>
             {/* left footer */}
             <div className='flex flex-col items-start gap-5 w-[50%]'>
