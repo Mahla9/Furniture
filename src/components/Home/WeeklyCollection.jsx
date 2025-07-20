@@ -16,7 +16,7 @@ function WeeklyCollection() {
           <h2 className='text-lg md:text-2xl text-gray-900'>Furniture collection of the week</h2>
           <p className='text-gray-500 text-xs md:text-sm lg:text-base'>The most popular products from the collection</p>
         </div>
-        <div className='w-screen md:w-full'><ProductsCarousel/></div>
+        <div className='w-[calc(100vw-15px)] md:w-full'><ProductsCarousel/></div>
       </div>
 
       <div className='md:w-1/2 lg:basis-1/3 relative w-full rounded-lg overflow-hidden'>
@@ -25,6 +25,6 @@ function WeeklyCollection() {
       </div>
     </div>
   )
-}
+};
 
 export default WeeklyCollection;
