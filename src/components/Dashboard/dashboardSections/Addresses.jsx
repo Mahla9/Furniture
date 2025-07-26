@@ -29,6 +29,8 @@ function Addresses() {
           <span className='text-gray-500'>{shippingAddress.zipCode}</span>
         </div>
       )}
+
+      {!shippingAddress && <span>no exist address yet</span>}
     </div>
   )
 }

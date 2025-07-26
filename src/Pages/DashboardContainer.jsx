@@ -10,7 +10,7 @@ function DashboardContainer() {
   const {content} = useParams() ;
 
   return (
-    <div>
+    <div className='bg-white'>
       <Header/>
       <BannerStatic/>
 
