@@ -35,7 +35,7 @@ function BannerSlider() {
         className={`pl-14 lg:pl-28 absolute inset-0 bg-cover bg-no-repeat bg-center flex flex-col justify-around items-start transition-all ease-linear duration-500
         ${currentSlide===index ? "translate-x-0" : "-translate-x-full "}`}>
             <div className='flex gap-2 items-center text-gray-700 font-semibold'>
-                <img src={slide.icon} alt={slide.category} className='p-4 rounded-full bg-black bg-opacity-10 aspect-square object-center'/>
+                <img fetchPriority='high' src={slide.icon} alt={slide.category} className='p-4 rounded-full bg-black bg-opacity-10 aspect-square object-center'/>
                 <h3>Discover more products 
                   <br /> 
                   in the <span className='underline decoration-orange-500 decoration-2 underline-offset-4'>{slide.category}</span> category

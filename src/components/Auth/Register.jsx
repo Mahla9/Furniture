@@ -2,6 +2,10 @@ import React from 'react';
 import { useAuthForm } from './useAuthForm';
 import { Spin } from 'antd';
 
+
+// این کامپوننت:
+// باید هوک ری اکت هوک فرم و یاپ پاک شود و با کامپوننت فرم انتدزاین و ولیدیشن مخصوصش بازسازی بشه
+
 function Register() {
     const {errors,loading,register,handleSubmit, onSubmit} = useAuthForm("register");
   return (

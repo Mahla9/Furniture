@@ -4,7 +4,9 @@ import { Spin } from 'antd';
 
 function Login() {
     const {errors,loading,register,handleSubmit, onSubmit} = useAuthForm("login");
-    
+
+    // این کامپوننت:
+    // باید هوک ری اکت هوک فرم و یاپ پاک شود و با کامپوننت فرم انتدزاین و ولیدیشن مخصوصش بازسازی بشه
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={`w-full transition duration-300 ease-in flex flex-col gap-2.5 `}>
             <h3 className='text-gray-800 font-semibold text-xl md:text-2xl'>Login</h3>

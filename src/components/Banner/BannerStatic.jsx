@@ -9,7 +9,7 @@ function BannerStatic() {
         <h2 className='text-xl md:text-2xl lg:text-3xl xl:text-5xl text-white font-semibold'>My account</h2>
 
         {/* این تیکه اش باید از انت دیزاین استفاده کنم
-        مسیر راهنما : breadcrump , Menu 
+        مسیر راهنما : breadcrump
         */}
         <div className='text-white font-semibold mt-6'>
             <Link to='/' className='font-normal text-gray-600 transition-all duration-200 ease-linear cursor-pointer hover:text-white'>

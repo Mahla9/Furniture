@@ -7,6 +7,9 @@ import Header from '../Header/Header';
 import BannerStatic from '../Banner/BannerStatic';
 import Footer from '../Footer/Footer';
 
+// این کامپوننت:
+// باید هوک ری اکت هوک فرم و یاپ پاک شود و با کامپوننت فرم انتدزاین و ولیدیشن مخصوصش بازسازی بشه
+
 function ResetPassword() {
     const navigate = useNavigate();
     const changePassword = useAuth(state=>state.changePassword);
