@@ -20,31 +20,42 @@ function CategoriesSection() {
   const products = useProductStore(state=>state.products);
 
   const categoryCounts = useMemo(() => {
-  const countMap = {};
-  categories.forEach(cat => {
-    countMap[cat.name] = products?.filter(p => p.category === cat.name).length || 0;
-  });
-  return countMap;
-}, [products]);
+    const countMap = {};
+    categories.forEach(cat => {
+      countMap[cat.name] = products?.filter(p => p.category === cat.name).length || 0;
+    });
+    return countMap;
+  }, [products]);
 
-const goToCategory = useCallback((name) => {
-  navigate(`/products/${name}`);
-}, [navigate]);
-
+  const goToCategory = useCallback((name) => {
+    navigate(`/products/${name}`);
+  }, [navigate]);
 
   return (
-    <div className='my-8 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6' >
-      {categories.map(category=>(
-        <div key={category.id} className='rounded-full overflow-hidden relative group cursor-pointer' onClick={() => goToCategory(category.name)}>
-
-          <div className="scale-110 min-w-80 transition-all ease-in duration-300 group-hover:scale-100 custom-shadow" >
-            <img src={category.image} alt={category.name} className='w-full h-full aspect-square ' width="350" height="350"/>
+    <div className='my-8 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6'>
+      {categories.map(category => (
+        <div 
+          key={category.id} 
+          className='rounded-full overflow-hidden relative group cursor-pointer'
+          onClick={() => goToCategory(category.name)}
+        >
+          
+          <div className="relative w-full aspect-square" >
+            <img 
+              src={category.image} 
+              alt={category.name}
+              className='absolute inset-0 w-full h-full object-cover scale-110 transition-transform duration-300 ease-in group-hover:scale-100 custom-shadow'
+              loading="lazy"
+              // این دو تا فقط برای SEO و accessibility هستن، روی render تاثیر ندارن
+              width="350" 
+              height="350"
+            />
           </div>
 
           <div className='absolute text-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group'>
             <h3 className='text-gray-800 bg-white rounded-2xl px-2 py-1'>{category.name}</h3>
             <span className='text-nowrap absolute left-1/2 top-full -translate-x-1/2 mt-2 text-white opacity-0 translate-y-6 transition-all duration-300 ease-in group-hover:opacity-100 group-hover:translate-y-0'>
-                {(categoryCounts[category.name] ?? 0) + " products"}
+              {(categoryCounts[category.name] ?? 0) + " products"}
             </span>          
           </div>
         </div>
