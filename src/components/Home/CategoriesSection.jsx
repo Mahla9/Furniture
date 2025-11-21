@@ -32,7 +32,7 @@ function CategoriesSection() {
   }, [navigate]);
 
   return (
-    <div className='my-8 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6'>
+    <div className='my-8 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6 gap-6'>
       {categories.map(category => (
         <div 
           key={category.id} 
@@ -46,9 +46,8 @@ function CategoriesSection() {
               alt={category.name}
               className='absolute inset-0 w-full h-full object-cover scale-110 transition-transform duration-300 ease-in group-hover:scale-100 custom-shadow'
               loading="lazy"
-              // این دو تا فقط برای SEO و accessibility هستن، روی render تاثیر ندارن
-              width="350" 
-              height="350"
+              // for improve performance and mobile friendly
+              sizes="(max-width: 640px) calc(50vw - 40px), (max-width: 768px) calc(25vw - 20px), (max-width: 1488px) calc(20vw - 15px), 300px"
             />
           </div>
 
