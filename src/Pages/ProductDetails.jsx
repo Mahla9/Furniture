@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
-import Breadcrump from '../components/Banner/Breadcrump';
 import { useParams } from 'react-router-dom';
 import useProductData from '../hooks/useProductData';
 import Brand from '../components/Brand';
@@ -17,7 +16,6 @@ function ProductDetails() {
   return (
     <div>
       <Header/>
-      <Breadcrump/>
 
       {/* Star Product Overview */}
       <div className='container bg-white rounded-lg p-3 grid grid-cols-1 md:grid-cols-2 gap-9 md:gap-0 items-start'>
